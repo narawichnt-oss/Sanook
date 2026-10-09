@@ -34,14 +34,14 @@ export function CreateRoom({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/60 sm:items-center" onClick={onClose}>
+    <div className="fixed inset-0 z-20 flex items-end justify-center bg-black/50 backdrop-blur-sm sm:items-center" onClick={onClose}>
       <form
         onSubmit={submit}
         onClick={(e) => e.stopPropagation()}
-        className="flex w-full max-w-md flex-col gap-4 rounded-t-3xl bg-night-2 p-5 pb-8 sm:rounded-3xl sm:pb-5"
+        className="glass-strong flex w-full max-w-md flex-col gap-4 rounded-t-[2rem] p-5 pb-8 sm:rounded-[2rem] sm:pb-5"
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">เปิดห้องใหม่</h2>
+          <h2 className="text-xl font-bold">เปิดห้องใหม่</h2>
           <button type="button" onClick={onClose} aria-label="ปิด" className="rounded-full px-3 py-1 text-muted hover:bg-night-3">
             ✕
           </button>
@@ -55,7 +55,7 @@ export function CreateRoom({ onClose }: { onClose: () => void }) {
               aria-pressed={e === emoji}
               onClick={() => setEmoji(e)}
               className={`grid size-11 shrink-0 place-items-center rounded-xl text-xl ${
-                e === emoji ? "bg-night-3 ring-2 ring-sun" : "bg-night-3/50"
+                e === emoji ? "bg-night-3 ring-2 ring-sun" : "glass"
               }`}
             >
               {e}
@@ -69,14 +69,14 @@ export function CreateRoom({ onClose }: { onClose: () => void }) {
           maxLength={MAX_TITLE}
           autoFocus
           placeholder="ชื่อห้อง เช่น นั่งเล่นหลังเลิกงาน"
-          className="rounded-2xl bg-night-3 px-4 py-3 outline-none placeholder:text-muted/60 focus:ring-2 focus:ring-lilac"
+          className="glass rounded-2xl px-4 py-3 outline-none placeholder:text-muted/60 focus:ring-2 focus:ring-lilac"
         />
         <input
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           maxLength={MAX_TOPIC}
           placeholder="คุยเรื่องอะไรกันดี (ไม่ใส่ก็ได้)"
-          className="rounded-2xl bg-night-3 px-4 py-3 outline-none placeholder:text-muted/60 focus:ring-2 focus:ring-lilac"
+          className="glass rounded-2xl px-4 py-3 outline-none placeholder:text-muted/60 focus:ring-2 focus:ring-lilac"
         />
 
         <div className="flex items-center gap-3">
@@ -98,7 +98,7 @@ export function CreateRoom({ onClose }: { onClose: () => void }) {
         <button
           type="submit"
           disabled={busy || !title.trim()}
-          className="rounded-2xl bg-sun px-4 py-3 text-lg font-semibold text-night disabled:opacity-40"
+          className="neon rounded-full bg-sun px-4 py-4 text-lg font-extrabold text-night transition active:scale-95 disabled:opacity-40 disabled:shadow-none"
         >
           {busy ? "กำลังเปิดห้อง…" : "เปิดห้องแล้วเข้าเลย"}
         </button>

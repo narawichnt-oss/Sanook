@@ -21,7 +21,7 @@ export function RoomGate({ roomId }: { roomId: string }) {
     return (
       <main className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center gap-8 px-4 py-10">
         <header className="text-center">
-          <h1 className="text-2xl font-semibold">มีคนชวนคุณมาคุยกัน</h1>
+          <h1 className="text-2xl font-semibold">มีคนชวนคุณมาสนุกด้วยกัน</h1>
           <p className="mt-2 text-muted">ตั้งชื่อเล่นก่อนเข้าห้อง</p>
         </header>
         <ProfileForm submitLabel="เข้าห้อง" onSave={save} />
@@ -59,7 +59,7 @@ function Connect({ roomId, profile }: { roomId: string; profile: Profile }) {
     return (
       <main className="mx-auto flex min-h-dvh max-w-sm flex-col items-center justify-center gap-6 px-4 text-center">
         <p className="text-lg">{error || "หลุดออกจากห้องแล้ว (ห้องอาจปิด หรือเน็ตหลุด)"}</p>
-        <Link href="/" className="rounded-2xl bg-sun px-6 py-3 font-semibold text-night">
+        <Link href="/" className="neon rounded-full bg-sun px-6 py-3 font-bold text-night">
           กลับไปหน้าห้องทั้งหมด
         </Link>
       </main>
@@ -85,7 +85,7 @@ function Connect({ roomId, profile }: { roomId: string; profile: Profile }) {
       className="min-h-dvh"
     >
       <RoomAudioRenderer />
-      <RoomStage roomId={roomId} meta={session.room} />
+      <RoomStage roomId={roomId} meta={session.room} token={session.token} profile={profile} />
     </LiveKitRoom>
   );
 }

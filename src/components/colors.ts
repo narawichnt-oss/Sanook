@@ -7,6 +7,7 @@ export const ROOM_BG: Record<RoomColor, string> = {
   sky: "bg-sky",
   lilac: "bg-lilac",
   sun: "bg-sun",
+  pink: "bg-pink",
 };
 
 export const ROOM_TINT: Record<RoomColor, string> = {
@@ -15,6 +16,17 @@ export const ROOM_TINT: Record<RoomColor, string> = {
   sky: "from-sky/25",
   lilac: "from-lilac/25",
   sun: "from-sun/25",
+  pink: "from-pink/25",
+};
+
+/** Stronger wash for the big lobby cards. */
+export const ROOM_CARD: Record<RoomColor, string> = {
+  coral: "from-coral/55 via-coral/15",
+  mint: "from-mint/45 via-mint/10",
+  sky: "from-sky/50 via-sky/15",
+  lilac: "from-lilac/55 via-lilac/15",
+  sun: "from-sun/45 via-sun/10",
+  pink: "from-pink/55 via-pink/15",
 };
 
 export const ROOM_VAR: Record<RoomColor, string> = {
@@ -23,4 +35,5 @@ export const ROOM_VAR: Record<RoomColor, string> = {
   sky: "var(--color-sky)",
   lilac: "var(--color-lilac)",
   sun: "var(--color-sun)",
+  pink: "var(--color-pink)",
 };

@@ -1,5 +1,5 @@
 import "server-only";
-import { AccessToken, RoomServiceClient } from "livekit-server-sdk";
+import { AccessToken, RoomServiceClient, TokenVerifier } from "livekit-server-sdk";
 
 function env(name: string): string {
   const value = process.env[name];
@@ -34,4 +34,15 @@ export async function joinToken(roomId: string, name: string, avatar: string): P
     canUpdateOwnMetadata: false,
   });
   return token.toJwt();
+}
+
+/** Who a join token belongs to, if we issued it and it hasn't expired. */
+export async function verifyJoinToken(token: string): Promise<{ roomId: string; identity: string } | null> {
+  try {
+    const claims = await new TokenVerifier(env("LIVEKIT_API_KEY"), env("LIVEKIT_API_SECRET")).verify(token);
+    const roomId = claims.video?.room;
+    return roomId && claims.sub ? { roomId, identity: claims.sub } : null;
+  } catch {
+    return null;
+  }
 }

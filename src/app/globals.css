@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-prompt), ui-sans-serif, system-ui, sans-serif;
+  /* Rounded faces first: Nunito covers Latin, Mitr covers Thai. */
+  --font-sans: var(--font-nunito), var(--font-mitr), ui-rounded, system-ui, sans-serif;
 
-  --color-night: #15131f;
-  --color-night-2: #1e1b2c;
-  --color-night-3: #2a2640;
-  --color-ink: #f4f1ea;
-  --color-muted: #a39fb8;
+  /* Deep midnight → dark violet, easy on the eyes at night. */
+  --color-night: #0c0a1d;
+  --color-night-2: #161230;
+  --color-night-3: #241d47;
+  --color-ink: #f6f4ff;
+  --color-muted: #aaa4cc;
 
+  /* Neon & pastel accents for actions and live states. */
   --color-coral: #ff7a6b;
-  --color-mint: #4fd1a5;
-  --color-sky: #5aa9ff;
+  --color-mint: #45f0b5;
+  --color-sky: #5cb8ff;
   --color-lilac: #b48cff;
-  --color-sun: #ffc94d;
+  --color-sun: #ffdd3c;
+  --color-pink: #ff4fa3;
 }
 
 html,
@@ -22,18 +26,37 @@ body {
   color: var(--color-ink);
 }
 
-/* Ring that pulses around whoever is talking. */
-@keyframes speak {
-  0%,
-  100% {
-    box-shadow: 0 0 0 3px var(--ring), 0 0 0 6px transparent;
-  }
-  50% {
-    box-shadow: 0 0 0 3px var(--ring), 0 0 18px 8px color-mix(in srgb, var(--ring) 45%, transparent);
-  }
+body {
+  /* Soft aurora behind everything so glass panels have something to frost. */
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, color-mix(in srgb, var(--color-lilac) 22%, transparent), transparent 70%),
+    radial-gradient(50rem 36rem at 110% 20%, color-mix(in srgb, var(--color-pink) 14%, transparent), transparent 70%),
+    var(--color-night);
+  background-attachment: fixed;
 }
-.speaking {
-  animation: speak 1.1s ease-in-out infinite;
+
+/* Translucent panels that keep the stage visible underneath. Write only the
+   unprefixed backdrop-filter: Lightning CSS adds -webkit- itself, and keeping
+   both makes it drop the standard one. */
+@utility glass {
+  background: color-mix(in srgb, white 7%, transparent);
+  border: 1px solid color-mix(in srgb, white 11%, transparent);
+  backdrop-filter: blur(18px) saturate(150%);
+}
+@utility glass-strong {
+  background: color-mix(in srgb, var(--color-night-2) 72%, transparent);
+  border: 1px solid color-mix(in srgb, white 10%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+}
+/* Full-screen sheets (chat) need text to stay readable over a busy stage. */
+@utility glass-solid {
+  background: color-mix(in srgb, var(--color-night-2) 94%, transparent);
+  border: 1px solid color-mix(in srgb, white 10%, transparent);
+  backdrop-filter: blur(24px);
+}
+/* Glow under call-to-action buttons; set --glow to change its color. */
+@utility neon {
+  box-shadow: 0 10px 34px -8px color-mix(in srgb, var(--glow, var(--color-sun)) 75%, transparent);
 }
 
 /* Emoji reactions drift up from the seat and fade. */
@@ -55,12 +78,101 @@ body {
   animation: float-up 1.8s ease-out forwards;
 }
 
+/* Avatars act out the mood of what their owner just typed. */
+@keyframes mood-laugh {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  20% { transform: rotate(-10deg) translateY(-6px); }
+  40% { transform: rotate(9deg) translateY(0); }
+  60% { transform: rotate(-7deg) translateY(-4px); }
+  80% { transform: rotate(5deg) translateY(0); }
+}
+@keyframes mood-angry {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-5px); }
+  30%, 60%, 90% { transform: translateX(5px); }
+}
+@keyframes mood-love {
+  0%, 100% { transform: scale(1); }
+  25%, 65% { transform: scale(1.14); }
+  45% { transform: scale(1.02); }
+}
+@keyframes mood-wow {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.22); }
+  55% { transform: scale(0.96); }
+}
+@keyframes mood-sad {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  30%, 70% { transform: translateY(5px) rotate(-4deg); }
+}
+.mood-laugh { animation: mood-laugh 0.9s ease-in-out 2; }
+.mood-angry { animation: mood-angry 0.6s ease-in-out 3; box-shadow: 0 0 22px 4px color-mix(in srgb, var(--color-coral) 55%, transparent); }
+.mood-love { animation: mood-love 0.9s ease-in-out 2; box-shadow: 0 0 22px 4px color-mix(in srgb, var(--color-pink) 50%, transparent); }
+.mood-wow { animation: mood-wow 0.7s ease-out 2; }
+.mood-sad { animation: mood-sad 1.2s ease-in-out 1; filter: saturate(0.6); }
+
+/* Lobby cards: the room emoji bobs gently. */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.bob {
+  animation: bob 3.2s ease-in-out infinite;
+}
+
+/* Hub: EXP pops, chest and spirit. */
+@keyframes exp-pop {
+  0% { transform: translateY(6px); opacity: 0; }
+  15% { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(-34px); opacity: 0; }
+}
+.exp-pop { animation: exp-pop 2.2s ease-out forwards; }
+@keyframes chest-bounce {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+.chest-bounce { display: inline-block; animation: chest-bounce 0.8s ease-in-out infinite; }
+@keyframes chest-open {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.5); }
+  100% { transform: scale(1.2); opacity: 0.9; }
+}
+.chest-open { display: inline-block; animation: chest-open 0.5s ease-out forwards; }
+@keyframes spirit-wobble {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(-10px, -6px) rotate(-6deg); }
+  75% { transform: translate(10px, 4px) rotate(6deg); }
+}
+.spirit-wobble { animation: spirit-wobble 1.6s ease-in-out infinite; }
+
+@keyframes live-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-dot {
+  animation: live-dot 1.4s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .speaking {
-    animation: none;
-    box-shadow: 0 0 0 4px var(--ring);
-  }
   .float-up {
     animation-duration: 1.2s;
+  }
+  .bob,
+  .live-dot,
+  .chest-bounce,
+  .spirit-wobble,
+  .mood-laugh,
+  .mood-angry,
+  .mood-love,
+  .mood-wow,
+  .mood-sad {
+    animation: none;
   }
 }

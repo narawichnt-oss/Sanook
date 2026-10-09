@@ -1,34 +1,33 @@
 "use client";
 
-import { useChat } from "@livekit/components-react";
+import type { ReceivedChatMessage } from "@livekit/components-react";
 import { useEffect, useRef, useState } from "react";
+import { useSwipe } from "@/lib/use-swipe";
+import { Avatar } from "../avatar";
 
-const MAX_MESSAGE = 300;
+export const MAX_MESSAGE = 300;
 
+/** Slides in from the right; swipe right (or tap outside) to get back to the stage. */
 export function ChatPanel({
   open,
   onClose,
-  onUnread,
+  messages,
+  send,
+  isSending,
 }: {
   open: boolean;
   onClose: () => void;
-  onUnread: () => void;
+  messages: ReceivedChatMessage[];
+  send: (text: string) => Promise<unknown>;
+  isSending: boolean;
 }) {
-  const { chatMessages, send, isSending } = useChat();
   const [draft, setDraft] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
-  const seen = useRef(0);
-
-  // Count messages that arrive from others while the panel is closed.
-  useEffect(() => {
-    const fresh = chatMessages.slice(seen.current);
-    seen.current = chatMessages.length;
-    if (!open) fresh.filter((m) => !m.from?.isLocal).forEach(onUnread);
-  }, [chatMessages, open, onUnread]);
+  const swipe = useSwipe({ onRight: onClose });
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight });
-  }, [chatMessages, open]);
+  }, [messages, open]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -39,40 +38,51 @@ export function ChatPanel({
   }
 
   return (
-    <div
-      className={`fixed inset-0 z-20 flex items-end justify-center bg-black/50 transition sm:items-center ${
-        open ? "" : "pointer-events-none opacity-0"
-      }`}
-      onClick={onClose}
-      inert={!open}
-    >
+    <>
       <div
-        onClick={(e) => e.stopPropagation()}
-        className="flex h-[70dvh] w-full max-w-md flex-col rounded-t-3xl bg-night-2 sm:rounded-3xl"
+        aria-hidden
+        onClick={onClose}
+        className={`fixed inset-0 z-20 bg-black/40 transition-opacity ${open ? "" : "pointer-events-none opacity-0"}`}
+      />
+      <aside
+        {...swipe}
+        inert={!open}
+        aria-label="แชทในห้อง"
+        className={`glass-solid fixed inset-y-0 right-0 z-30 flex w-full flex-col transition-transform duration-300 ease-out sm:w-96 sm:rounded-l-[2rem] ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <div className="flex items-center justify-between px-5 pt-4 pb-2">
-          <h2 className="font-semibold">แชทในห้อง</h2>
-          <button onClick={onClose} aria-label="ปิดแชท" className="rounded-full px-3 py-1 text-muted hover:bg-night-3">
-            ✕
+        <div className="flex items-center gap-3 px-4 pt-5 pb-3">
+          <button
+            onClick={onClose}
+            aria-label="กลับไปที่ห้อง"
+            className="glass grid size-10 place-items-center rounded-full text-lg"
+          >
+            ←
           </button>
+          <div>
+            <h2 className="font-bold">แชทในห้อง</h2>
+            <p className="text-xs text-muted">พิมพ์ &quot;555&quot; หรือ &quot;โกรธ&quot; แล้วดูตัวเองบนเวที</p>
+          </div>
         </div>
 
-        <div ref={listRef} className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-2">
-          {chatMessages.length === 0 && (
-            <p className="m-auto text-sm text-muted">ยังไม่มีข้อความ พิมพ์ทักทายกันหน่อย</p>
-          )}
-          {chatMessages.map((m) => {
+        <div ref={listRef} className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-2">
+          {messages.length === 0 && <p className="m-auto text-sm text-muted">ยังไม่มีข้อความ พิมพ์ทักทายกันหน่อย</p>}
+          {messages.map((m) => {
             const mine = m.from?.isLocal;
             return (
-              <div key={m.id} className={`flex max-w-[85%] flex-col ${mine ? "self-end items-end" : "items-start"}`}>
+              <div key={m.id} className={`flex max-w-[85%] flex-col ${mine ? "items-end self-end" : "items-start"}`}>
                 {!mine && (
-                  <span className="mb-0.5 text-xs text-muted">
-                    {m.from?.attributes.avatar} {m.from?.name}
+                  <span className="mb-0.5 flex items-center gap-1.5 text-xs text-muted">
+                    <span className="grid size-5 place-items-center overflow-hidden rounded-full bg-night-3 text-[13px]">
+                      <Avatar emoji={m.from?.attributes.avatar} photo={m.from?.attributes.photo} />
+                    </span>
+                    {m.from?.name}
                   </span>
                 )}
                 <span
                   className={`rounded-2xl px-3 py-2 break-words whitespace-pre-wrap ${
-                    mine ? "bg-lilac text-night" : "bg-night-3"
+                    mine ? "rounded-br-md bg-lilac text-night" : "glass rounded-bl-md"
                   }`}
                 >
                   {m.message}
@@ -82,23 +92,23 @@ export function ChatPanel({
           })}
         </div>
 
-        <form onSubmit={submit} className="flex gap-2 p-4">
+        <form onSubmit={submit} className="flex gap-2 p-4 pb-6">
           <input
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             maxLength={MAX_MESSAGE}
             placeholder="พิมพ์ข้อความ…"
-            className="min-w-0 flex-1 rounded-full bg-night-3 px-4 py-3 outline-none focus:ring-2 focus:ring-lilac"
+            className="glass min-w-0 flex-1 rounded-full px-4 py-3 outline-none focus:ring-2 focus:ring-lilac"
           />
           <button
             type="submit"
             disabled={isSending || !draft.trim()}
-            className="rounded-full bg-sun px-5 font-semibold text-night disabled:opacity-40"
+            className="rounded-full bg-sun px-5 font-bold text-night transition active:scale-95 disabled:opacity-40"
           >
             ส่ง
           </button>
         </form>
-      </div>
-    </div>
+      </aside>
+    </>
   );
 }

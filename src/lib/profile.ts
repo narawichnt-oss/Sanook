@@ -1,9 +1,10 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
-import { AVATARS } from "./room-meta";
+import { AVATARS, isPhotoDataUrl } from "./room-meta";
 
-export type Profile = { name: string; avatar: string };
+/** `photo` is an optional small data URL; `avatar` (emoji) is always kept as the fallback. */
+export type Profile = { name: string; avatar: string; photo?: string };
 
 const KEY = "kuikan.profile";
 const listeners = new Set<() => void>();
@@ -23,7 +24,13 @@ function read(): Profile | null {
     cachedRaw = raw;
     try {
       const data = raw ? JSON.parse(raw) : null;
-      cached = data?.name ? { name: String(data.name), avatar: String(data.avatar || AVATARS[0]) } : null;
+      cached = data?.name
+        ? {
+            name: String(data.name),
+            avatar: String(data.avatar || AVATARS[0]),
+            ...(isPhotoDataUrl(data.photo) ? { photo: data.photo } : {}),
+          }
+        : null;
     } catch {
       cached = null;
     }

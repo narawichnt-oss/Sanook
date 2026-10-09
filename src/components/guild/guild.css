@@ -1,0 +1,87 @@
+/* Guild-only motion. Kept apart from globals.css so the guild feature can grow
+   without touching the shared stylesheet. */
+
+/* Battle-log ticker: the strip slides left forever; content is doubled so it loops seamlessly. */
+@keyframes guild-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.guild-ticker {
+  animation: guild-ticker var(--ticker-duration, 30s) linear infinite;
+}
+
+/* Avatars bounce a little while they stroll around the island. */
+@keyframes guild-walk {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5%); }
+}
+.guild-walk {
+  animation: guild-walk 0.55s ease-in-out infinite;
+}
+
+/* Speech bubbles for waves and high-fives. */
+@keyframes guild-pop {
+  0% { transform: translate(-50%, 6px) scale(0.4); opacity: 0; }
+  15% { transform: translate(-50%, -4px) scale(1.15); opacity: 1; }
+  80% { transform: translate(-50%, -10px) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -18px) scale(0.9); opacity: 0; }
+}
+.guild-pop {
+  animation: guild-pop 2.6s ease-out forwards;
+}
+
+/* The sea shimmers around the island. */
+@keyframes guild-sea {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.85; }
+}
+.guild-sea {
+  animation: guild-sea 5s ease-in-out infinite;
+}
+
+/* Cheers from friends drift up the side of the game screen. */
+@keyframes guild-cheer {
+  0% { transform: translateY(0) scale(0.5); opacity: 0; }
+  12% { transform: translateY(-10px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-46vh) scale(1); opacity: 0; }
+}
+.guild-cheer {
+  animation: guild-cheer 2.8s ease-out forwards;
+}
+
+/* Pair cards flip in 3D. */
+.guild-card {
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+.guild-card[data-open="true"] {
+  transform: rotateY(180deg);
+}
+.guild-card > * {
+  backface-visibility: hidden;
+}
+.guild-card > .guild-card-front {
+  transform: rotateY(180deg);
+}
+
+/* A big shove on the tug-of-war bar when someone scores. */
+.guild-duel > span {
+  transition: width 0.9s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+@keyframes guild-drop {
+  0% { transform: translateY(-30px) rotate(-12deg) scale(0.6); opacity: 0; }
+  60% { transform: translateY(4px) rotate(4deg) scale(1.1); opacity: 1; }
+  100% { transform: translateY(0) rotate(0) scale(1); opacity: 1; }
+}
+.guild-drop {
+  animation: guild-drop 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guild-ticker { animation-duration: 90s; }
+  .guild-walk,
+  .guild-sea { animation: none; }
+  .guild-cheer { animation-duration: 1.5s; }
+  .guild-card { transition: none; }
+}

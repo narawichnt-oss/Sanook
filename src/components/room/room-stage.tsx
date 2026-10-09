@@ -17,6 +17,10 @@ import type { Profile } from "@/lib/profile";
 import type { RoomMeta } from "@/lib/room-meta";
 import { useSwipe } from "@/lib/use-swipe";
 import { ROOM_TINT, ROOM_VAR } from "../colors";
+import { EventLayer } from "../hub/event-layer";
+import { HubBar } from "../hub/hub-bar";
+import { Meditation } from "../hub/meditation";
+import { useHub } from "../hub/use-hub";
 import { ChatPanel } from "./chat-panel";
 import { Seat, type FloatingReaction, type SeatMood } from "./seat";
 
@@ -53,6 +57,8 @@ export function RoomStage({
   const [toast, setToast] = useState("");
   const seen = useRef(0);
   const photoSent = useRef(false);
+  const [meditating, setMeditating] = useState(false);
+  const hub = useHub({ token, profile, active: state === ConnectionState.Connected });
 
   const mic = useTrackToggle({
     source: Track.Source.Microphone,
@@ -128,9 +134,10 @@ export function RoomStage({
     seen.current = chatMessages.length;
     for (const m of fresh) {
       if (!m.from?.isLocal) haptic("tap");
+      else hub.noteChat();
       if (m.from) actOut(m.from.identity, m.message, m.id);
     }
-  }, [chatMessages, actOut]);
+  }, [chatMessages, actOut]); // eslint-disable-line react-hooks/exhaustive-deps -- hub.noteChat only flips a ref
 
   const onReaction = useCallback(
     (msg: { payload: Uint8Array; from?: { identity: string } }) => {
@@ -198,6 +205,8 @@ export function RoomStage({
           ชวนเพื่อน
         </button>
       </header>
+
+      <HubBar view={hub.view} gains={hub.gains} error={hub.error} onMeditate={() => setMeditating(true)} />
 
       <section className="grid flex-1 grid-cols-3 content-start gap-x-1 gap-y-4 px-2 pt-6 sm:grid-cols-4">
         {participants.map((p) => (
@@ -281,6 +290,9 @@ export function RoomStage({
           </div>
         </nav>
       </div>
+
+      {meditating && <Meditation view={hub.view} avatar={profile.avatar} photo={photo} onExit={() => setMeditating(false)} />}
+      <EventLayer event={hub.event} serverNow={hub.serverNow} onChest={hub.tapChest} onSpirit={hub.tapSpirit} />
 
       <ChatPanel
         open={chatOpen}

@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { guildApi, useGuildMe } from "@/lib/guild/client";
 import { haptic } from "@/lib/haptics";
+import type { LevelInfo } from "@/lib/hub/rules";
 import { useProfile } from "@/lib/profile";
 import {
   MAX_ROOM_SIZE,
@@ -31,6 +33,20 @@ export function Lobby() {
   const [quick, setQuick] = useState<"idle" | "busy">("idle");
   const [active, setActive] = useState(0);
   const railRef = useRef<HTMLDivElement>(null);
+  const [level, setLevel] = useState<LevelInfo | null>(null);
+  const { me } = useGuildMe(profile && !editing ? profile : null);
+
+  // Personal level from the training hub, once this device is signed in.
+  useEffect(() => {
+    if (!me) return;
+    let alive = true;
+    guildApi<{ level: LevelInfo }>("/api/hub/me")
+      .then((data) => alive && setLevel(data.level))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [me]);
 
   useEffect(() => {
     let alive = true;
@@ -131,6 +147,13 @@ export function Lobby() {
           </p>
         </div>
         <div className="flex items-center gap-2">
+          <Link
+            href="/guild"
+            onClick={() => haptic("tick")}
+            className="glass flex h-12 items-center gap-1.5 rounded-full px-3 text-sm font-bold transition hover:brightness-125"
+          >
+            🏝️ <span className="hidden min-[380px]:inline">กิลด์</span>
+          </Link>
           <button
             onClick={() => setEditing(true)}
             className="glass flex h-12 items-center gap-2 rounded-full py-1.5 pr-3 pl-1.5 transition hover:brightness-125"
@@ -139,9 +162,15 @@ export function Lobby() {
               <span className="grid size-full place-items-center overflow-hidden rounded-full">
                 <Avatar emoji={profile.avatar} photo={profile.photo} />
               </span>
+              {level && (
+                <span className="absolute -right-1.5 -bottom-1 rounded-full bg-sun px-1 text-[10px] leading-4 font-extrabold text-night">
+                  {level.level}
+                </span>
+              )}
             </span>
             <span className="flex min-w-0 flex-col items-start leading-tight">
               <span className="max-w-24 truncate text-sm font-medium">{profile.name}</span>
+              {level && <span className="text-[10px] text-muted">{level.title}</span>}
             </span>
           </button>
         </div>

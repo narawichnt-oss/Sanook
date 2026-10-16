@@ -282,28 +282,6 @@ for x, y in prof:
 line(*I(0, W_TOP, H - T - SLOT / 2), *I(L, W_TOP, H - T - SLOT / 2), "thin")
 text(IX + 52, IY + 16, "ISOMETRIC VIEW (NOT TO SCALE)", 3.4, weight="bold")
 
-# ================================================================ NOTES
-NX, NY = 28.0, 232.0
-text(NX, NY, "NOTES / SPECIFICATION", 3.8, "start", "bold")
-notes = [
-    "1. MATERIAL: STAINLESS STEEL SUS316 (AISI 316), t = 1.5 mm THROUGHOUT",
-    "2. WATER INLET: SUS316 SOCKET, FEMALE THREAD G1½\" (BSPP / Rp1½)",
-    "    WELDED TO BOTTOM AT MID-LENGTH (L = 500), QTY 1",
-    "3. OVERALL LENGTH 1000 mm INCLUDING END CAPS (t = 1.5)",
-    "4. OUTLET SLOT 5 mm GAP × 50 mm DEEP, FULL LENGTH",
-    "    LIP STRAIGHT & LEVEL WITHIN ±0.3 mm FOR A SMOOTH SHEET",
-    "5. FLOW BAFFLE: PERFORATED Ø6 HOLES @ 15 mm PITCH",
-    "6. CONTINUOUS TIG WELD ALL SEAMS, ER316L FILLER, WATERTIGHT",
-    "7. EXTERNAL FINISH: HAIRLINE / No.8 MIRROR (PER CLIENT)",
-    "    CLEAN WELDS & PASSIVATE AFTER WELDING",
-    "8. HYDROSTATIC LEAK TEST 1.5 bar FOR 10 MIN",
-    "9. GENERAL TOLERANCE ±1 mm (ISO 2768-m)",
-    "10. SUGGESTED PUMP FLOW: APPROX. 6–10 m³/h PER 1 m",
-]
-for i, n in enumerate(notes):
-    col, row = (0, i) if i < 7 else (1, i - 7)
-    text(NX + col * 112, NY + 6 + row * 6.2, n, 2.45, "start")
-
 # ================================================================ TITLE BLOCK
 TX, TY, TW, TH = 250.0, 219.0, 160.0, 68.0
 rect(TX, TY, TW, TH, "frame")

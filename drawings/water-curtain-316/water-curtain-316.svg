@@ -150,20 +150,6 @@ text{font-family:Loma, 'Noto Sans Thai', Garuda, sans-serif;fill:#000}
 <line class="vis" x1="280" y1="55.2" x2="397.378" y2="30.251"/>
 <line class="thin" x1="270.624" y1="63.548" x2="388.001" y2="38.598"/>
 <text class="txt" x="332" y="88" font-size="3.4" text-anchor="middle" font-weight="bold">ISOMETRIC VIEW (NOT TO SCALE)</text>
-<text class="txt" x="28" y="232" font-size="3.8" text-anchor="start" font-weight="bold">NOTES / SPECIFICATION</text>
-<text class="txt" x="28" y="238" font-size="2.45" text-anchor="start" font-weight="normal">1. MATERIAL: STAINLESS STEEL SUS316 (AISI 316), t = 1.5 mm THROUGHOUT</text>
-<text class="txt" x="28" y="244.2" font-size="2.45" text-anchor="start" font-weight="normal">2. WATER INLET: SUS316 SOCKET, FEMALE THREAD G1½" (BSPP / Rp1½)</text>
-<text class="txt" x="28" y="250.4" font-size="2.45" text-anchor="start" font-weight="normal">    WELDED TO BOTTOM AT MID-LENGTH (L = 500), QTY 1</text>
-<text class="txt" x="28" y="256.6" font-size="2.45" text-anchor="start" font-weight="normal">3. OVERALL LENGTH 1000 mm INCLUDING END CAPS (t = 1.5)</text>
-<text class="txt" x="28" y="262.8" font-size="2.45" text-anchor="start" font-weight="normal">4. OUTLET SLOT 5 mm GAP × 50 mm DEEP, FULL LENGTH</text>
-<text class="txt" x="28" y="269" font-size="2.45" text-anchor="start" font-weight="normal">    LIP STRAIGHT &amp; LEVEL WITHIN ±0.3 mm FOR A SMOOTH SHEET</text>
-<text class="txt" x="28" y="275.2" font-size="2.45" text-anchor="start" font-weight="normal">5. FLOW BAFFLE: PERFORATED Ø6 HOLES @ 15 mm PITCH</text>
-<text class="txt" x="140" y="238" font-size="2.45" text-anchor="start" font-weight="normal">6. CONTINUOUS TIG WELD ALL SEAMS, ER316L FILLER, WATERTIGHT</text>
-<text class="txt" x="140" y="244.2" font-size="2.45" text-anchor="start" font-weight="normal">7. EXTERNAL FINISH: HAIRLINE / No.8 MIRROR (PER CLIENT)</text>
-<text class="txt" x="140" y="250.4" font-size="2.45" text-anchor="start" font-weight="normal">    CLEAN WELDS &amp; PASSIVATE AFTER WELDING</text>
-<text class="txt" x="140" y="256.6" font-size="2.45" text-anchor="start" font-weight="normal">8. HYDROSTATIC LEAK TEST 1.5 bar FOR 10 MIN</text>
-<text class="txt" x="140" y="262.8" font-size="2.45" text-anchor="start" font-weight="normal">9. GENERAL TOLERANCE ±1 mm (ISO 2768-m)</text>
-<text class="txt" x="140" y="269" font-size="2.45" text-anchor="start" font-weight="normal">10. SUGGESTED PUMP FLOW: APPROX. 6–10 m³/h PER 1 m</text>
 <rect class="frame" x="250" y="219" width="160" height="68"/>
 <rect x="250" y="219" width="160" height="10" fill="#111"/>
 <text class="inv" x="330" y="225.8" font-size="5.0" text-anchor="middle" font-weight="bold">WONDER TECHNOLOGY CO., LTD.</text>

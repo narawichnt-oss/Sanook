@@ -48,6 +48,7 @@ def circle(cx, cy, r, cls="vis"):
 
 
 def text(x, y, s, size=3.0, anchor="middle", weight="normal", rot=0, cls="txt"):
+    s = s.replace("&", "&amp;").replace("<", "&lt;")
     tr = f' transform="rotate({rot} {f(x)} {f(y)})"' if rot else ""
     a(f'<text class="{cls}" x="{f(x)}" y="{f(y)}" font-size="{size}" '
       f'text-anchor="{anchor}" font-weight="{weight}"{tr}>{s}</text>')
@@ -102,6 +103,7 @@ text{{font-family:{FONT};fill:#000}}
 .hatch{{fill:url(#hatch);stroke:#000;stroke-width:0.3}}
 .slot{{fill:#555;stroke:none}}
 .flow{{fill:none;stroke:#1f6fd1;stroke-width:0.45;stroke-dasharray:2 1;marker-end:url(#flow)}}
+.inv{{fill:#fff}}
 .frame{{fill:none;stroke:#000;stroke-width:0.7}}
 .cut{{fill:none;stroke:#000;stroke-width:0.7}}
 </style>
@@ -164,7 +166,7 @@ fl = [
 ]
 for pts in fl:
     a('<polyline class="flow" points="' + " ".join(f"{f(P(*p)[0])},{f(P(*p)[1])}" for p in pts) + '"/>')
-text(*(lambda p: (p[0] + 1.5, p[1]))(P(W_TOP + 10, 80)), "ม่านน้ำ", 2.6, "start")
+text(*(lambda p: (p[0] + 1.5, p[1]))(P(W_TOP + 10, 80)), "WATER SHEET", 2.6, "start")
 
 # dimensions – section
 x0, ytop = P(0, H)
@@ -182,20 +184,20 @@ _, ylip = P(0, H - H_LIP)
 dim_v(ytop, ylip, x170 + 20, x170, x170, "20", side="right")
 _, ys1 = P(0, H - T)
 _, ys2 = P(0, H - T - SLOT)
-leader(x170 - 0.5, (ys1 + ys2) / 2, x170 + 8, ytop - 3, "ช่องน้ำออก 5 mm ตลอดแนว")
+leader(x170 - 0.5, (ys1 + ys2) / 2, x170 + 8, ytop - 3, "OUTLET SLOT 5 mm, FULL LENGTH")
 
 gx, gy = P(SOCK_X - r_min, 12)
 a(f'<polyline class="lead" points="{f(gx)},{f(gy)} {f(OX + 6)},{f(OY + 27)} {f(OX + 2)},{f(OY + 27)}"/>')
-text(OX - 18, OY + 26, 'เกลียวใน G1½" (BSPP)', 2.8, "start", "bold")
-text(OX - 18, OY + 29.6, "ข้อต่อ SUS316 Ø60 สูง 25", 2.5, "start")
+text(OX - 18, OY + 31, 'FEMALE THREAD G1½" (BSPP)', 2.8, "start", "bold")
+text(OX - 18, OY + 34.6, "SUS316 SOCKET Ø60 × 25 H", 2.5, "start")
 leader(*P(104, BAFFLE_Y + T), *P(90, BAFFLE_Y + 16),
-       "แผ่นกระจายน้ำ เจาะรู Ø6 @15", 2.5, "end")
+       "PERFORATED BAFFLE Ø6 @15", 2.5, "end")
 leader(*P(T, 100), *(lambda p: (p[0] + 10, p[1] - 8))(P(T, 100)), "SUS316 t = 1.5", 2.5)
 leader(*P(140, H - H_LIP + T / 2), *P(108, H - H_LIP - 10),
-       "กล่องปิดทึบ (เชื่อมรอบ)", 2.5, "end")
+       "SEALED BOX (FULLY WELDED)", 2.5, "end")
 
-text(OX + 85, OY + 40, "ภาพตัด A-A (SECTION A-A)", 4.2, weight="bold")
-text(OX + 85, OY + 45, "มาตราส่วน 1:1", 3.0)
+text(OX + 85, OY + 40, "SECTION A-A", 4.2, weight="bold")
+text(OX + 85, OY + 45, "SCALE 1:1", 3.0)
 
 # ================================================================ FRONT VIEW (1:5)
 FS = 0.12
@@ -230,7 +232,7 @@ text(fx1 + 5, fy1 - 3.5, "A", 3.4, weight="bold")
 dim_h(fx0, fx1, fy1 - 8, fy1, fy1, "1000")
 dim_h(fx0, F(L / 2, 0)[0], fy0 + 7, fy0, fy0, "500")
 dim_v(fy1, fy0, fx1 + 9, fx1, fx1, "140", side="right")
-text((fx0 + fx1) / 2, fy0 + 14, "ภาพด้านหน้า – ด้านน้ำออก (FRONT VIEW)", 3.6, weight="bold")
+text((fx0 + fx1) / 2, fy0 + 14, "FRONT VIEW (OUTLET SIDE)", 3.6, weight="bold")
 
 # ================================================================ BOTTOM VIEW (1:5)
 BX, BY = 266.0, 146.0   # sheet position of (L=0, back face) ; depth grows downward
@@ -253,8 +255,8 @@ line(cx, cy - 8, cx, cy + 8, "ctr")
 dim_v(by0, by1, bx1 + 9, bx1, bx1, "170", side="right")
 dim_v(by0, B(0, W_BODY)[1], bx0 - 4, bx0, bx0, "120", side="left")
 dim_h(bx0, cx, by1 + 5, by1, cy, "500")
-leader(cx + 2, cy - 2, cx + 14, by0 - 3, 'G1½" เกลียวใน (กึ่งกลาง)', 2.4)
-text((bx0 + bx1) / 2, by1 + 12, "ภาพด้านล่าง (BOTTOM VIEW)", 3.6, weight="bold")
+leader(cx + 2, cy - 2, cx + 14, by0 - 3, 'G1½" FEMALE INLET (CENTRE)', 2.4)
+text((bx0 + bx1) / 2, by1 + 12, "BOTTOM VIEW", 3.6, weight="bold")
 
 # ================================================================ ISOMETRIC (approx 1:10)
 IS = 0.12
@@ -278,52 +280,55 @@ for x, y in prof:
         continue
     line(*I(0, x, y), *I(L, x, y), "vis")
 line(*I(0, W_TOP, H - T - SLOT / 2), *I(L, W_TOP, H - T - SLOT / 2), "thin")
-text(IX + 52, IY + 16, "ภาพ 3 มิติ (ISOMETRIC) – ไม่ได้สเกล", 3.4, weight="bold")
+text(IX + 52, IY + 16, "ISOMETRIC VIEW (NOT TO SCALE)", 3.4, weight="bold")
 
 # ================================================================ NOTES
 NX, NY = 28.0, 232.0
-text(NX, NY, "หมายเหตุ / รายละเอียดงาน", 3.8, "start", "bold")
+text(NX, NY, "NOTES / SPECIFICATION", 3.8, "start", "bold")
 notes = [
-    "1. วัสดุ: สแตนเลส SUS316 (AISI 316) หนา 1.5 mm ทั้งชิ้น",
-    "2. ท่อน้ำเข้า: ข้อต่อเกลียวใน G1½\" (BSPP / Rp1½) SUS316",
-    "    เชื่อมด้านล่าง กึ่งกลางความยาว (L = 500) จำนวน 1 จุด",
-    "3. ความยาวรวม 1000 mm รวมแผ่นปิดหัว-ท้าย (หนา 1.5)",
-    "4. ช่องน้ำออก (Slot) กว้าง 5 mm ลึก 50 mm ตลอดแนว",
-    "    ปากต้องตรงและได้ระดับ ±0.3 mm เพื่อให้ม่านน้ำเรียบ",
-    "5. แผ่นกระจายน้ำ (Baffle) เจาะรู Ø6 ระยะห่าง 15 mm",
-    "6. เชื่อม TIG ต่อเนื่องทุกตะเข็บ ลวด ER316L กันรั่ว 100%",
-    "7. ผิวภายนอก: Hairline / ขัดเงา No.8 (ตามลูกค้าเลือก)",
-    "    ทำความสะอาดรอยเชื่อม + Passivation หลังเชื่อม",
-    "8. ทดสอบรั่วด้วยแรงดันน้ำ 1.5 bar นาน 10 นาที",
-    "9. ค่าความคลาดเคลื่อนทั่วไป ±1 mm (ISO 2768-m)",
-    "10. ปั๊มแนะนำ: ประมาณ 6–10 m³/h ที่ความยาว 1 m",
+    "1. MATERIAL: STAINLESS STEEL SUS316 (AISI 316), t = 1.5 mm THROUGHOUT",
+    "2. WATER INLET: SUS316 SOCKET, FEMALE THREAD G1½\" (BSPP / Rp1½)",
+    "    WELDED TO BOTTOM AT MID-LENGTH (L = 500), QTY 1",
+    "3. OVERALL LENGTH 1000 mm INCLUDING END CAPS (t = 1.5)",
+    "4. OUTLET SLOT 5 mm GAP × 50 mm DEEP, FULL LENGTH",
+    "    LIP STRAIGHT & LEVEL WITHIN ±0.3 mm FOR A SMOOTH SHEET",
+    "5. FLOW BAFFLE: PERFORATED Ø6 HOLES @ 15 mm PITCH",
+    "6. CONTINUOUS TIG WELD ALL SEAMS, ER316L FILLER, WATERTIGHT",
+    "7. EXTERNAL FINISH: HAIRLINE / No.8 MIRROR (PER CLIENT)",
+    "    CLEAN WELDS & PASSIVATE AFTER WELDING",
+    "8. HYDROSTATIC LEAK TEST 1.5 bar FOR 10 MIN",
+    "9. GENERAL TOLERANCE ±1 mm (ISO 2768-m)",
+    "10. SUGGESTED PUMP FLOW: APPROX. 6–10 m³/h PER 1 m",
 ]
 for i, n in enumerate(notes):
     col, row = (0, i) if i < 7 else (1, i - 7)
-    text(NX + col * 112, NY + 6 + row * 6.2, n, 2.75, "start")
+    text(NX + col * 112, NY + 6 + row * 6.2, n, 2.45, "start")
 
 # ================================================================ TITLE BLOCK
-TX, TY, TW, TH = 250.0, 229.0, 160.0, 58.0
+TX, TY, TW, TH = 250.0, 219.0, 160.0, 68.0
 rect(TX, TY, TW, TH, "frame")
+a(f'<rect x="{f(TX)}" y="{f(TY)}" width="{f(TW)}" height="10" fill="#111"/>')
+text(TX + TW / 2, TY + 6.8, "WONDER TECHNOLOGY CO., LTD.", 5.0, weight="bold", cls="inv")
+TY += 10
 line(TX, TY + 8, TX + TW, TY + 8, "thin")
-text(TX + 2, TY + 3.2, "โครงการ (PROJECT)", 2.1, "start")
+text(TX + 2, TY + 3.2, "PROJECT", 2.1, "start")
 text(TX + TW / 2 + 12, TY + 6.2, "VELRA THONGLOR", 4.4, weight="bold")
 TY += 8
 rows = [TY + 12, TY + 22, TY + 31, TY + 40]
 for yy in rows:
     line(TX, yy, TX + TW, yy, "thin")
-line(TX + 80, rows[0], TX + 80, TY + TH - 8, "thin")
-text(TX + TW / 2, TY + 5.5, "ม่านน้ำสแตนเลส 316 (WATER CURTAIN)", 4.6, weight="bold")
-text(TX + TW / 2, TY + 10.2, 'L 1000 × 170 × 140 mm  •  ท่อน้ำเข้าเกลียวใน G1½"', 3.0)
+line(TX + 80, rows[0], TX + 80, TY + TH - 18, "thin")
+text(TX + TW / 2, TY + 5.5, "STAINLESS STEEL 316 WATER CURTAIN", 4.6, weight="bold")
+text(TX + TW / 2, TY + 10.2, 'L 1000 × 170 × 140 mm  •  INLET G1½" FEMALE THREAD', 3.0)
 cells = [
-    (TX + 2, rows[0] + 4, "วัสดุ", "SUS316  t = 1.5 mm"),
-    (TX + 82, rows[0] + 4, "เลขที่แบบ", "WC-316-1000-01"),
-    (TX + 2, rows[1] + 4, "มาตราส่วน", "ตามระบุ (A3)"),
-    (TX + 82, rows[1] + 4, "หน่วย", "มิลลิเมตร (mm)"),
-    (TX + 2, rows[2] + 4, "จำนวน", "1 ชุด"),
-    (TX + 82, rows[2] + 4, "วันที่", "16/10/2026"),
-    (TX + 2, rows[3] + 4, "ผู้เขียนแบบ", "................"),
-    (TX + 82, rows[3] + 4, "ผู้ตรวจ / อนุมัติ", "................"),
+    (TX + 2, rows[0] + 4, "MATERIAL", "SUS316  t = 1.5 mm"),
+    (TX + 82, rows[0] + 4, "DRAWING No.", "WC-316-1000-01"),
+    (TX + 2, rows[1] + 4, "SCALE", "AS SHOWN (A3)"),
+    (TX + 82, rows[1] + 4, "UNITS", "MILLIMETRES (mm)"),
+    (TX + 2, rows[2] + 4, "QTY", "1 SET"),
+    (TX + 82, rows[2] + 4, "DATE", "16/10/2026"),
+    (TX + 2, rows[3] + 4, "DRAWN BY", "................"),
+    (TX + 82, rows[3] + 4, "CHECKED / APPROVED", "................"),
 ]
 for x, y, k, v in cells:
     text(x, y - 0.6, k, 2.1, "start")

@@ -160,7 +160,7 @@ text{font-family:Loma, 'Noto Sans Thai', Garuda, sans-serif;fill:#000}
 <line class="thin" x1="250" y1="259" x2="410" y2="259"/>
 <line class="thin" x1="250" y1="268" x2="410" y2="268"/>
 <line class="thin" x1="250" y1="277" x2="410" y2="277"/>
-<line class="thin" x1="330" y1="249" x2="330" y2="287"/>
+<line class="thin" x1="330" y1="249" x2="330" y2="277"/>
 <text class="txt" x="330" y="242.5" font-size="4.6" text-anchor="middle" font-weight="bold">STAINLESS STEEL 316 WATER CURTAIN</text>
 <text class="txt" x="330" y="247.2" font-size="3.0" text-anchor="middle" font-weight="normal">L 1000 × 170 × 140 mm  •  INLET G1½" FEMALE THREAD</text>
 <text class="txt" x="252" y="252.4" font-size="2.1" text-anchor="start" font-weight="normal">MATERIAL</text>
@@ -176,7 +176,5 @@ text{font-family:Loma, 'Noto Sans Thai', Garuda, sans-serif;fill:#000}
 <text class="txt" x="332" y="271.4" font-size="2.1" text-anchor="start" font-weight="normal">DATE</text>
 <text class="txt" x="334" y="276.6" font-size="3.2" text-anchor="start" font-weight="bold">16/10/2026</text>
 <text class="txt" x="252" y="280.4" font-size="2.1" text-anchor="start" font-weight="normal">DRAWN BY</text>
-<text class="txt" x="254" y="285.6" font-size="3.2" text-anchor="start" font-weight="bold">................</text>
-<text class="txt" x="332" y="280.4" font-size="2.1" text-anchor="start" font-weight="normal">CHECKED / APPROVED</text>
-<text class="txt" x="334" y="285.6" font-size="3.2" text-anchor="start" font-weight="bold">................</text>
+<text class="txt" x="254" y="285.6" font-size="3.2" text-anchor="start" font-weight="bold">NARAWICH TANAMATEE</text>
 </svg>

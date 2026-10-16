@@ -295,7 +295,7 @@ TY += 8
 rows = [TY + 12, TY + 22, TY + 31, TY + 40]
 for yy in rows:
     line(TX, yy, TX + TW, yy, "thin")
-line(TX + 80, rows[0], TX + 80, TY + TH - 18, "thin")
+line(TX + 80, rows[0], TX + 80, rows[3], "thin")
 text(TX + TW / 2, TY + 5.5, "STAINLESS STEEL 316 WATER CURTAIN", 4.6, weight="bold")
 text(TX + TW / 2, TY + 10.2, 'L 1000 × 170 × 140 mm  •  INLET G1½" FEMALE THREAD', 3.0)
 cells = [
@@ -305,8 +305,7 @@ cells = [
     (TX + 82, rows[1] + 4, "UNITS", "MILLIMETRES (mm)"),
     (TX + 2, rows[2] + 4, "QTY", "1 SET"),
     (TX + 82, rows[2] + 4, "DATE", "16/10/2026"),
-    (TX + 2, rows[3] + 4, "DRAWN BY", "................"),
-    (TX + 82, rows[3] + 4, "CHECKED / APPROVED", "................"),
+    (TX + 2, rows[3] + 4, "DRAWN BY", "NARAWICH TANAMATEE"),
 ]
 for x, y, k, v in cells:
     text(x, y - 0.6, k, 2.1, "start")

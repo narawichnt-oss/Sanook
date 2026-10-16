@@ -18,10 +18,10 @@ SLOT = 5.0       # outlet slot gap
 BAFFLE_Y = 60.0  # perforated baffle height from bottom
 SOCK_X = 60.0    # inlet centre from back face
 SOCK_OD = 60.0   # socket outside diameter
-SOCK_H = 25.0    # socket height
+SOCK_H = 25.0    # socket protrusion below body bottom
 G_MAJOR = 47.803  # G1-1/2 major dia
 G_MINOR = 44.845  # G1-1/2 minor dia
-HOLE = 50.0      # hole in bottom plate
+HOLE = 60.0      # hole in bottom plate (socket passes through)
 
 FONT = "Loma, 'Noto Sans Thai', Garuda, sans-serif"
 out = []
@@ -111,7 +111,7 @@ text{{font-family:{FONT};fill:#000}}
 rect(20, 10, 390, 277, "frame")
 
 # ================================================================ SECTION A-A (1:1)
-OX, OY = 45.0, 176.0          # sheet position of (back face, bottom)
+OX, OY = 45.0, 170.0          # sheet position of (back face, bottom)
 S = 1.0
 
 
@@ -145,20 +145,20 @@ while xb < W_BODY - T:
 r_o, r_maj, r_min = SOCK_OD / 2, G_MAJOR / 2, G_MINOR / 2
 for side in (-1, 1):
     xa, xb2 = SOCK_X + side * r_maj, SOCK_X + side * r_o
-    srect(min(xa, xb2), T, max(xa, xb2), T + SOCK_H, "hatch")
+    srect(min(xa, xb2), -SOCK_H, max(xa, xb2), T, "hatch")
     # thread minor diameter (thick) + major (thin)
     x_min = SOCK_X + side * r_min
-    line(*P(x_min, T), *P(x_min, T + SOCK_H), "vis")
-# fillet welds
+    line(*P(x_min, -SOCK_H), *P(x_min, T), "vis")
+# fillet welds (outside, under the bottom plate)
 for xw in (SOCK_X - r_o, SOCK_X + r_o):
     s = -1 if xw < SOCK_X else 1
-    x0, y0 = P(xw, T)
-    a(f'<polygon class="sec" points="{f(x0)},{f(y0)} {f(x0 + s*2.5)},{f(y0)} {f(x0)},{f(y0 - 2.5)}"/>')
-line(*P(SOCK_X, -12), *P(SOCK_X, T + SOCK_H + 8), "ctr")
+    x0, y0 = P(xw, 0)
+    a(f'<polygon class="sec" points="{f(x0)},{f(y0)} {f(x0 + s*2.5)},{f(y0)} {f(x0)},{f(y0 + 2.5)}"/>')
+line(*P(SOCK_X, -SOCK_H - 8), *P(SOCK_X, T + 10), "ctr")
 
 # flow arrows
 fl = [
-    [(SOCK_X, -10), (SOCK_X, BAFFLE_Y - 8)],
+    [(SOCK_X, -SOCK_H - 6), (SOCK_X, BAFFLE_Y - 8)],
     [(SOCK_X - 25, BAFFLE_Y + 6), (SOCK_X - 25, 112)],
     [(SOCK_X + 25, BAFFLE_Y + 6), (SOCK_X + 25, 112), (W_BODY - 8, H - T - SLOT / 2),
      (W_TOP + 14, H - T - SLOT / 2)],
@@ -174,9 +174,11 @@ x170, _ = P(W_TOP, H)
 x120, ybot = P(W_BODY, 0)
 dim_h(x0, x170, ytop - 14, ytop, ytop, "170")
 dim_h(x120, x170, ytop - 7, ytop, ytop, "50")
-dim_h(x0, x120, ybot + 18, ybot, ybot, "120")
+dim_h(x0, x120, ybot + 41, ybot, ybot, "120")
 xs, _ = P(SOCK_X, 0)
-dim_h(x0, xs, ybot + 10, ybot, ybot + 12, "60")
+dim_h(x0, xs, ybot + 33, ybot, ybot + SOCK_H + 8, "60")
+xso, _ = P(SOCK_X + r_o, 0)
+dim_v(ybot, ybot + SOCK_H, xso + 8, xso, xso, "25", side="right")
 dim_v(ytop, ybot, x0 - 12, x0, x0, "140")
 _, yb = P(0, BAFFLE_Y)
 dim_v(yb, ybot, x0 - 5, x0, x0, "60", side="left")
@@ -186,18 +188,18 @@ _, ys1 = P(0, H - T)
 _, ys2 = P(0, H - T - SLOT)
 leader(x170 - 0.5, (ys1 + ys2) / 2, x170 + 8, ytop - 3, "OUTLET SLOT 5 mm, FULL LENGTH")
 
-gx, gy = P(SOCK_X - r_min, 12)
-a(f'<polyline class="lead" points="{f(gx)},{f(gy)} {f(OX + 6)},{f(OY + 27)} {f(OX + 2)},{f(OY + 27)}"/>')
-text(OX - 18, OY + 31, 'FEMALE THREAD G1½" (BSPP)', 2.8, "start", "bold")
-text(OX - 18, OY + 34.6, "SUS316 SOCKET Ø60 × 25 H", 2.5, "start")
+gx, gy = P(SOCK_X - r_min, -12)
+a(f'<polyline class="lead" points="{f(gx)},{f(gy)} {f(OX + 22)},{f(OY + 16)} {f(OX - 18)},{f(OY + 16)}"/>')
+text(OX - 18, OY + 15, 'FEMALE THREAD G1½" (BSPP)', 2.8, "start", "bold")
+text(OX - 18, OY + 19.5, "SOCKET Ø60 SUS316", 2.5, "start")
 leader(*P(104, BAFFLE_Y + T), *P(90, BAFFLE_Y + 16),
        "PERFORATED BAFFLE Ø6 @15", 2.5, "end")
 leader(*P(T, 100), *(lambda p: (p[0] + 10, p[1] - 8))(P(T, 100)), "SUS316 t = 1.5", 2.5)
 leader(*P(140, H - H_LIP + T / 2), *P(108, H - H_LIP - 10),
        "SEALED BOX (FULLY WELDED)", 2.5, "end")
 
-text(OX + 85, OY + 40, "SECTION A-A", 4.2, weight="bold")
-text(OX + 85, OY + 45, "SCALE 1:1", 3.0)
+text(OX + 85, OY + 54, "SECTION A-A", 4.2, weight="bold")
+text(OX + 85, OY + 59, "SCALE 1:1", 3.0)
 
 # ================================================================ FRONT VIEW (1:5)
 FS = 0.12
@@ -218,9 +220,9 @@ rect(sx0, sy0, sx1 - sx0, sy1 - sy0, "slot")
 line(*F(0, H - T - SLOT), *F(L, H - T - SLOT), "thin")
 line(*F(0, H - T), *F(L, H - T), "thin")
 # hidden inlet
-hx0, hy0 = F(L / 2 - r_o, T + SOCK_H)
-hx1, hy1 = F(L / 2 + r_o, 0)
-rect(hx0, hy0, hx1 - hx0, hy1 - hy0, "hid")
+hx0, hy0 = F(L / 2 - r_o, 0)
+hx1, hy1 = F(L / 2 + r_o, -SOCK_H)
+rect(hx0, hy0, hx1 - hx0, hy1 - hy0, "vis")
 line(*F(L / 2, -12), *F(L / 2, H + 8), "ctr")
 # section mark A-A
 for xx in (fx0 - 8, fx1 + 2):
@@ -230,12 +232,12 @@ for xx, d in ((fx0 - 5, 1), (fx1 + 5, 1)):
 text(fx0 - 5, fy1 - 3.5, "A", 3.4, weight="bold")
 text(fx1 + 5, fy1 - 3.5, "A", 3.4, weight="bold")
 dim_h(fx0, fx1, fy1 - 8, fy1, fy1, "1000")
-dim_h(fx0, F(L / 2, 0)[0], fy0 + 7, fy0, fy0, "500")
+dim_h(fx0, F(L / 2, 0)[0], fy0 + 9, fy0, fy0 + 3, "500")
 dim_v(fy1, fy0, fx1 + 9, fx1, fx1, "140", side="right")
-text((fx0 + fx1) / 2, fy0 + 14, "FRONT VIEW (OUTLET SIDE)", 3.6, weight="bold")
+text((fx0 + fx1) / 2, fy0 + 16, "FRONT VIEW (OUTLET SIDE)", 3.6, weight="bold")
 
 # ================================================================ BOTTOM VIEW (1:5)
-BX, BY = 266.0, 146.0   # sheet position of (L=0, back face) ; depth grows downward
+BX, BY = 266.0, 150.0   # sheet position of (L=0, back face) ; depth grows downward
 
 
 def B(l, d):
@@ -247,9 +249,9 @@ bx1, by1 = B(L, W_TOP)
 rect(bx0, by0, bx1 - bx0, by1 - by0)
 line(*B(0, W_BODY), *B(L, W_BODY))
 cx, cy = B(L / 2, SOCK_X)
-circle(cx, cy, HOLE / 2 * FS, "vis")
+circle(cx, cy, r_maj * FS, "thin")
 circle(cx, cy, r_min * FS, "thin")
-circle(cx, cy, r_o * FS, "hid")
+circle(cx, cy, r_o * FS, "vis")
 line(cx - 8, cy, cx + 8, cy, "ctr")
 line(cx, cy - 8, cx, cy + 8, "ctr")
 dim_v(by0, by1, bx1 + 9, bx1, bx1, "170", side="right")
@@ -280,6 +282,10 @@ for x, y in prof:
         continue
     line(*I(0, x, y), *I(L, x, y), "vis")
 line(*I(0, W_TOP, H - T - SLOT / 2), *I(L, W_TOP, H - T - SLOT / 2), "thin")
+sock = [(L / 2 - r_o, SOCK_X, 0), (L / 2 + r_o, SOCK_X, 0), (L / 2 + r_o, SOCK_X, -SOCK_H),
+        (L / 2 - r_o, SOCK_X, -SOCK_H)]
+a('<polygon class="vis" fill="#f2f2f2" points="' +
+  " ".join(f"{f(I(*q)[0])},{f(I(*q)[1])}" for q in sock) + '"/>')
 text(IX + 52, IY + 16, "ISOMETRIC VIEW (NOT TO SCALE)", 3.4, weight="bold")
 
 # ================================================================ TITLE BLOCK

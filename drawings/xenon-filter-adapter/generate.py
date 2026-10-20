@@ -21,9 +21,14 @@ BODY_H = 70.0          # body outer height (Y), -35..+35
 APERTURE = 46.0        # light aperture in both plates
 TUBE_A = (55.8, 2.0, 40.0)   # OD, wall, length
 TUBE_B = (56.0, 2.0, 40.0)
-FILTER = 50.0          # filter 50 x 50 (thickness <= 5)
+FILTER = 50.0          # filter 50 x 50
+FILTER_T = 2.0         # filter thickness
 POCKET = 50.5
-CARR_T = 5.0
+CARR_T = 5.0           # carrier stack = P05 + P06
+CARR_A = 3.0           # P05 pocket plate (holds filter)
+CARR_B = 2.0           # P06 ledge plate
+LEDGE = 46.0           # P06 square window -> 2.25 ledge
+SCREW_XY = (28.9, 29.0)  # M2 countersunk screw positions (+/-)
 CARR_W = 65.0
 CARR_BOT = -33.0
 CARR_TOP = 33.0
@@ -74,6 +79,12 @@ def carrier_outline():
             (-h, CARR_TOP), (-w, CARR_TOP), (-w, CARR_BOT + c)]
 
 
+def ledge_outline():
+    c, w = 2.0, CARR_W / 2
+    return [(-w + c, CARR_BOT), (w - c, CARR_BOT), (w, CARR_BOT + c), (w, CARR_TOP),
+            (-w, CARR_TOP), (-w, CARR_BOT + c)]
+
+
 def write_dxfs():
     # 01 front body flat pattern
     doc = dxf_doc(); m = doc.modelspace()
@@ -110,9 +121,24 @@ def write_dxfs():
     p = POCKET / 2
     m.add_lwpolyline([(-p, -p), (p, -p), (p, p), (-p, p)], close=True, dxfattribs={"layer": "CUT"})
     m.add_circle((0, FINGER_Y), FINGER_D / 2, dxfattribs={"layer": "CUT"})
-    m.add_text("P05 FILTER CARRIER  AL6061-T6 t5.0  QTY1", height=2.5,
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            m.add_circle((sx * SCREW_XY[0], sy * SCREW_XY[1]), 0.8, dxfattribs={"layer": "CUT"})
+    m.add_text("P05 FILTER CARRIER  AL6061-T6 t3.0  QTY1  4x D1.6 TAP M2", height=2.5,
                dxfattribs={"layer": "NOTE"}).set_placement((-CARR_W / 2, HANDLE_TOP + 4))
-    doc.saveas(OUT / "P05_filter_carrier_t5.dxf")
+    doc.saveas(OUT / "P05_filter_carrier_t3.dxf")
+
+    # 06 ledge plate
+    doc = dxf_doc(); m = doc.modelspace()
+    m.add_lwpolyline(ledge_outline(), close=True, dxfattribs={"layer": "CUT"})
+    q = LEDGE / 2
+    m.add_lwpolyline([(-q, -q), (q, -q), (q, q), (-q, q)], close=True, dxfattribs={"layer": "CUT"})
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            m.add_circle((sx * SCREW_XY[0], sy * SCREW_XY[1]), 1.2, dxfattribs={"layer": "CUT"})
+    m.add_text("P06 LEDGE PLATE  AL5052-H32 t2.0  QTY1  4x D2.4 CSK90 M2", height=2.5,
+               dxfattribs={"layer": "NOTE"}).set_placement((-CARR_W / 2, CARR_TOP + 4))
+    doc.saveas(OUT / "P06_ledge_plate_t2.dxf")
 
 
 # ---------------- SVG helpers ----------------
@@ -240,13 +266,16 @@ def section_view(ox, oy):
     rect(P, z2, -HB, z3, -HB + T_SHEET, "cut")         # bottom flange
     # carrier in slot (section at x=0 passes through finger hole)
     cz1, cz2 = z2 + (GAP - CARR_T) / 2, z3 - (GAP - CARR_T) / 2
-    p = POCKET / 2
-    rect(P, cz1, CARR_BOT, cz2, -p, "cut2")
-    rect(P, cz1, p, cz2, FINGER_Y - FINGER_D / 2, "cut2")
-    rect(P, cz1, FINGER_Y + FINGER_D / 2, cz2, HANDLE_TOP, "cut2")
-    # filter glass (assume 3 mm, centred)
-    gz = (z2 + z3) / 2
-    rect(P, gz - 1.5, -FILTER / 2, gz + 1.5, FILTER / 2, "glass")
+    p, q = POCKET / 2, LEDGE / 2
+    cm = cz1 + CARR_A
+    rect(P, cz1, CARR_BOT, cm, -p, "cut2")                       # P05
+    rect(P, cz1, p, cm, FINGER_Y - FINGER_D / 2, "cut2")
+    rect(P, cz1, FINGER_Y + FINGER_D / 2, cm, HANDLE_TOP, "cut2")
+    rect(P, cm, CARR_BOT, cz2, -q, "cut")                        # P06
+    rect(P, cm, q, cz2, CARR_TOP, "cut")
+    # filter glass seated on P06 ledge
+    gz = cm - FILTER_T / 2
+    rect(P, cm - FILTER_T, -FILTER / 2, cm, FILTER / 2, "glass")
     line(P, (za0 - 6, 0), (zb1 + 6, 0), "ctr")
     # weld symbols (fillet triangles)
     for (zz, rr, sgn) in ((z1, ra, -1), (z4, rb, 1)):
@@ -269,7 +298,7 @@ def section_view(ox, oy):
     dim_v(P, -ra, ra, za0 - 7, f"Ø{TUBE_A[0]} h9 (OD)")
     ext(P, (zb1, rb), (zb1 + 9, rb)); ext(P, (zb1, -rb), (zb1 + 9, -rb))
     dim_v(P, -rb, rb, zb1 + 11, f"Ø{TUBE_B[0]:.1f} h9 (OD)")
-    leader(P, (gz, 10), (z4 + 14, HB + 6), "ร่องเสียบ กว้าง 6 (ใส่ฟิลเตอร์ 50x50 หนา ≤5)")
+    leader(P, (gz, 10), (z4 + 14, HB + 6), f"ร่องเสียบกว้าง 6 | ฟิลเตอร์ 50x50 หนา {FILTER_T:g}")
     leader(P, (z4, -30), (z4 + 14, -HB - 2), "ท่อ B")
     leader(P, (z1, -30), (za0 + 2, -HB - 2), "ท่อ A", "end")
     leader(P, (z1 - 1.5, ra + 1.0), (za0 + 4, HB + 6), "เชื่อมรอบ TIG a3", "end")
@@ -322,6 +351,10 @@ def carrier_view(ox, oy):
     rect(P, -p, -p, p, p)
     rect(P, -FILTER / 2, -FILTER / 2, FILTER / 2, FILTER / 2, "glass")
     circle(P, 0, FINGER_Y, FINGER_D / 2)
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            circle(P, sx * SCREW_XY[0], sy * SCREW_XY[1], 0.8)
+    leader(P, (SCREW_XY[0] + 0.6, SCREW_XY[1] + 0.6), (w + 4, CARR_TOP + 6), "4xØ1.6 ต๊าป M2")
     line(P, (-w - 5, 0), (w + 5, 0), "ctr"); line(P, (0, CARR_BOT - 5), (0, HANDLE_TOP + 4), "ctr")
     ext(P, (-w, CARR_BOT), (-w, CARR_BOT - 9)); ext(P, (w, CARR_BOT), (w, CARR_BOT - 9))
     dim_h(P, -w, w, CARR_BOT - 7, f"{CARR_W:g}")
@@ -338,10 +371,37 @@ def carrier_view(ox, oy):
     ext(P, (-FINGER_D / 2, FINGER_Y), (-w - 9, FINGER_Y))
     dim_v(P, 0, FINGER_Y, -w - 7, f"{FINGER_Y:g}")
     text(ox, oy + 4, "ฟิลเตอร์ 50x50", 2.6, "middle", cls="blue")
-    text(ox, oy + 8, "ยึดด้วยซิลิโคน RTV 4 มุม", 2.4, "middle", cls="blue")
+    text(ox, oy + 8, f"หนา {FILTER_T:g} วางบนบ่า P06 + ซิลิโคน", 2.4, "middle", cls="blue")
     leader(P, (w - 1, CARR_BOT + 1), (w + 4, CARR_BOT - 12), "ลบมุม 2x45°")
     leader(P, (FINGER_D / 2 * 0.707, FINGER_Y + FINGER_D / 2 * 0.707), (h + 6, HANDLE_TOP + 9), f"Ø{FINGER_D:g}")
-    title(ox, oy - HANDLE_TOP - 15, "P05 ถาดใส่ฟิลเตอร์ (Carrier)", "Al 6061-T6 หนา 5  |  1:1")
+    title(ox, oy - HANDLE_TOP - 15, "P05 ถาดใส่ฟิลเตอร์ (Carrier)", "Al 6061-T6 หนา 3  |  1:1")
+
+
+def ledge_view(ox, oy):
+    P = view(ox, oy)
+    w, q = CARR_W / 2, LEDGE / 2
+    poly(P, ledge_outline())
+    rect(P, -q, -q, q, q)
+    rect(P, -POCKET / 2, -POCKET / 2, POCKET / 2, POCKET / 2, "hid")
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            circle(P, sx * SCREW_XY[0], sy * SCREW_XY[1], 1.2)
+            circle(P, sx * SCREW_XY[0], sy * SCREW_XY[1], 2.0, "hid")
+    line(P, (-w - 4, 0), (w + 4, 0), "ctr"); line(P, (0, CARR_BOT - 4), (0, CARR_TOP + 4), "ctr")
+    ext(P, (-q, -q), (-q, CARR_BOT - 4)); ext(P, (q, -q), (q, CARR_BOT - 4))
+    dim_h(P, -q, q, CARR_BOT - 3, f"□{LEDGE:g} (บ่า 2.25)")
+    ext(P, (-w, CARR_BOT), (-w, CARR_BOT - 9)); ext(P, (w, CARR_BOT), (w, CARR_BOT - 9))
+    dim_h(P, -w, w, CARR_BOT - 8, f"{CARR_W:g}")
+    ext(P, (w, CARR_BOT), (w + 8, CARR_BOT)); ext(P, (w, CARR_TOP), (w + 8, CARR_TOP))
+    dim_v(P, CARR_BOT, CARR_TOP, w + 6, f"{CARR_TOP - CARR_BOT:g}")
+    ext(P, (-SCREW_XY[0], SCREW_XY[1]), (-SCREW_XY[0], CARR_TOP + 5))
+    ext(P, (SCREW_XY[0], SCREW_XY[1]), (SCREW_XY[0], CARR_TOP + 5))
+    dim_h(P, -SCREW_XY[0], SCREW_XY[0], CARR_TOP + 3, f"{2 * SCREW_XY[0]:g}")
+    ext(P, (-SCREW_XY[0], -SCREW_XY[1]), (-w - 8, -SCREW_XY[1]))
+    ext(P, (-SCREW_XY[0], SCREW_XY[1]), (-w - 8, SCREW_XY[1]))
+    dim_v(P, -SCREW_XY[1], SCREW_XY[1], -w - 6, f"{2 * SCREW_XY[1]:g}")
+    text(ox, oy + 9, "4xØ2.4 เจาะผาย 90° (สกรู M2x4 หัวจม)", 2.4, "middle", cls="dimt")
+    title(ox, oy - CARR_TOP - 13, "P06 แผ่นบ่ารองฟิลเตอร์", "Al 5052-H32 หนา 2  |  1:1  (ยึดกับ P05)")
 
 
 def back_view(ox, oy):
@@ -414,6 +474,7 @@ def build_svg():
     flat_view(62, 222)
     carrier_view(158, 230)
     back_view(250, 222)
+    ledge_view(350, 150)
 
     # notes
     nx, ny = 292, 20
@@ -432,8 +493,8 @@ def build_svg():
         "7. ลวดเชื่อม ER5356 (ถ้าจะชุบอโนไดซ์) หรือ ER4043",
         "8. ลบคม ขัดเม็ดเชื่อมในร่องให้เรียบ ถาด P05 ต้องเลื่อนเข้าออกลื่น",
         "9. แนะนำชุบอโนไดซ์ดำด้าน ลดแสงสะท้อนภายใน",
-        "10. ฟิลเตอร์ 50x50 หนา ≤5 วางในช่อง □50.5 ยึดซิลิโคนที่มุม",
-        "11. ไฟล์ DXF: P01, P02, P05 (layer CUT=ตัด, BEND=เส้นพับ)",
+        f"10. ฟิลเตอร์ 50x50 หนา {FILTER_T:g} วางในช่อง P05 บนบ่า P06 ยึดซิลิโคนที่มุม",
+        "11. ไฟล์ DXF: P01, P02, P05, P06 (layer CUT=ตัด, BEND=เส้นพับ)",
     ]
     for i, n in enumerate(notes):
         text(nx, ny + 6 + i * 4.6, n, 2.55)
@@ -446,7 +507,9 @@ def build_svg():
         ["P02", "แผ่นหลัง", "Al5052-H32 t2", "เลเซอร์", "1"],
         ["P03", "ท่อ A", f"Al6061 OD{TUBE_A[0]} x t2 x 40", "ตัด+กลึง", "1"],
         ["P04", "ท่อ B", f"Al6061 OD{TUBE_B[0]:.1f} x t2 x 40", "ตัด+กลึง", "1"],
-        ["P05", "ถาดฟิลเตอร์", "Al6061-T6 t5", "เลเซอร์", "1"],
+        ["P05", "ถาดฟิลเตอร์", "Al6061-T6 t3", "เลเซอร์+ต๊าป", "1"],
+        ["P06", "แผ่นบ่ารอง", "Al5052-H32 t2", "เลเซอร์", "1"],
+        ["-", "สกรูหัวจม", "M2x4 สแตนเลส", "ซื้อ", "4"],
     ], [10, 21, 38, 21, 15])
 
     # title block
@@ -456,7 +519,7 @@ def build_svg():
             ["เครื่อง", "Xenon reactor (ปลาย Ø55.8 / Ø56)"],
             ["วัสดุหลัก", "อลูมิเนียม | ตัด-พับ-เลเซอร์-เชื่อม"],
             ["มาตราส่วน / กระดาษ", "1:1  |  A3   (ห้ามวัดจากกระดาษ ใช้ตัวเลข)"],
-            ["วันที่ / Rev", "2026-10-20  |  Rev A"]]
+            ["วันที่ / Rev", "2026-10-20  |  Rev B (ฟิลเตอร์หนา 2)"]]
     table(292, ty, rows[0], rows[1:], tw, size=2.6, rh=5.6, head=True)
 
     svg.append("</svg>")

@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461334.3391319443
+2461334.3408564813
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461334.3391319443
+2461334.3408564813
   9
 $TDUUPDATE
  40
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{D2E11515-3435-42DE-8E4D-156E2822CC9A}
+{F047704A-9E9A-447C-83B6-804E6467A8CD}
   9
 $VERSIONGUID
   2
-{221B40F0-82A4-4FB6-81AE-B0B2E19C69D5}
+{B8792A29-4B13-4878-9B3B-AD8B75444C02}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -8739,7 +8739,7 @@ AcDbText
  40
 2.4
   1
-3. หน้าตัดปลายเชื่อมตั้งฉากกับแกน ≤0.1, ลบคมใน-นอก, ลบมุม C0.5 ด้านปลายสวม
+3. หน้าตัดปลายเชื่อมตั้งฉากกับแกนไม่เกิน 0.1, ลบคมใน-นอก, ลบมุม C0.5 ด้านปลายสวม
   7
 THAI
  11
@@ -8771,7 +8771,7 @@ AcDbText
  40
 2.4
   1
-4. ร่วมศูนย์กับท่ออีกด้าน ≤0.3 (ดูแบบประกอบ ASSY)
+4. ร่วมศูนย์กับท่ออีกด้านไม่เกิน 0.3 (ดูแบบประกอบ ASSY)
   7
 THAI
  11
@@ -9885,7 +9885,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-20T08:08:21.190006+00:00
+1.4.5 @ 2026-10-20T08:10:50.785190+00:00
   0
 VISUALSTYLE
   5
@@ -10597,7 +10597,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-20T08:08:21.206777+00:00
+1.4.5 @ 2026-10-20T08:10:50.797546+00:00
   0
 ENDSEC
   0

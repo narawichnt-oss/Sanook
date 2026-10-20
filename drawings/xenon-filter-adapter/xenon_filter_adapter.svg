@@ -1,0 +1,280 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
+<defs>
+<marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="3" markerHeight="3"
+ markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,1.5 L10,5 L0,8.5 z" fill="#1d4e89"/></marker>
+<pattern id="hatch" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+ <line x1="0" y1="0" x2="0" y2="2" stroke="#222" stroke-width="0.25"/></pattern>
+<pattern id="hatch2" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+ <line x1="0" y1="0" x2="0" y2="2" stroke="#555" stroke-width="0.25"/></pattern>
+</defs>
+<style>
+ text { font-family: Loma, 'Noto Sans Thai', sans-serif; fill:#111; }
+ .vis { fill:none; stroke:#000; stroke-width:0.45; }
+ .hid { fill:none; stroke:#000; stroke-width:0.25; stroke-dasharray:1.6 0.8; }
+ .ctr { fill:none; stroke:#b03030; stroke-width:0.2; stroke-dasharray:5 1 1 1; }
+ .bend { fill:none; stroke:#c00; stroke-width:0.35; stroke-dasharray:3 1.2; }
+ .ext { stroke:#1d4e89; stroke-width:0.15; }
+ .dim { fill:none; stroke:#1d4e89; stroke-width:0.2; }
+ .dimt { fill:#1d4e89; }
+ .cut { fill:url(#hatch); stroke:#000; stroke-width:0.4; }
+ .cut2 { fill:url(#hatch2); stroke:#000; stroke-width:0.4; }
+ .glass { fill:#bfe3f5; fill-opacity:0.6; stroke:#2b7bb9; stroke-width:0.3; }
+ .weld { fill:#333; }
+ .thin { fill:none; stroke:#000; stroke-width:0.25; }
+ .thead { fill:#e8edf3; }
+ .red { fill:#c00; } .blue { fill:#2b7bb9; }
+</style>
+<rect x="0" y="0" width="420" height="297" fill="#fff"/>
+<rect class="vis" x="8" y="8" width="404" height="281" stroke-width="0.7"/>
+<polygon class="hid" points="31.50,125.00 92.50,125.00 94.50,123.00 94.50,59.00 29.50,59.00 29.50,123.00" />
+<polyline class="vis" points="47.00,57.00 47.00,42.00 52.00,37.00 72.00,37.00 77.00,42.00 77.00,57.00" />
+<circle class="vis" cx="62.00" cy="48.00" r="6.00"/>
+<polygon class="hid" points="37.00,117.00 87.00,117.00 87.00,67.00 37.00,67.00" />
+<polygon class="vis" points="26.50,127.00 97.50,127.00 97.50,57.00 26.50,57.00" />
+<circle class="vis" cx="62.00" cy="92.00" r="27.90"/>
+<circle class="vis" cx="62.00" cy="92.00" r="25.90"/>
+<circle class="vis glass" cx="62.00" cy="92.00" r="23.00"/>
+<line class="ctr" x1="20.50" y1="92.00" x2="103.50" y2="92.00"/>
+<line class="ctr" x1="62.00" y1="133.00" x2="62.00" y2="33.00"/>
+<line class="ext" x1="26.50" y1="127.00" x2="26.50" y2="137.00"/>
+<line class="ext" x1="97.50" y1="127.00" x2="97.50" y2="137.00"/>
+<line class="dim" x1="26.50" y1="135.00" x2="97.50" y2="135.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="62.00" y="134.00" font-size="2.8" text-anchor="middle" font-weight="normal">71</text>
+<line class="ext" x1="47.00" y1="37.00" x2="47.00" y2="30.00"/>
+<line class="ext" x1="77.00" y1="37.00" x2="77.00" y2="30.00"/>
+<line class="dim" x1="47.00" y1="32.00" x2="77.00" y2="32.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="62.00" y="31.00" font-size="2.8" text-anchor="middle" font-weight="normal">30</text>
+<line class="ext" x1="26.50" y1="57.00" x2="16.50" y2="57.00"/>
+<line class="ext" x1="26.50" y1="127.00" x2="16.50" y2="127.00"/>
+<line class="dim" x1="18.50" y1="127.00" x2="18.50" y2="57.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="17.50" y="92.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 17.50 92.00)">70</text>
+<line class="ext" x1="77.00" y1="37.00" x2="115.50" y2="37.00"/>
+<line class="ext" x1="97.50" y1="127.00" x2="115.50" y2="127.00"/>
+<line class="dim" x1="113.50" y1="127.00" x2="113.50" y2="37.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="112.50" y="82.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 112.50 82.00)">90</text>
+<line class="ext" x1="97.50" y1="92.00" x2="107.50" y2="92.00"/>
+<line class="dim" x1="105.50" y1="127.00" x2="105.50" y2="92.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="104.50" y="109.50" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 104.50 109.50)">35</text>
+<polyline class="dim" points="81.73,72.27 99.50,48.00 111.50,48.00" marker-start="url(#arr)"/>
+<text class="dimt" x="100.50" y="47.20" font-size="2.8" text-anchor="start" font-weight="normal">Ø55.8 (ท่อ A)</text>
+<polyline class="dim" points="45.74,108.26 56.50,143.00 44.50,143.00" marker-start="url(#arr)"/>
+<text class="dimt" x="55.50" y="142.20" font-size="2.8" text-anchor="end" font-weight="normal">รูรับแสง Ø46</text>
+<polyline class="dim" points="62.00,48.00 24.50,35.00 12.50,35.00" marker-start="url(#arr)"/>
+<text class="dimt" x="23.50" y="34.20" font-size="2.8" text-anchor="end" font-weight="normal">รูนิ้ว Ø12</text>
+<text class="txt" x="62.00" y="19.00" font-size="4.0" text-anchor="middle" font-weight="bold">VIEW A : มองจากด้านท่อ A</text>
+<text class="txt" x="62.00" y="23.50" font-size="2.8" text-anchor="middle" font-weight="normal">มาตราส่วน 1:1</text>
+<polygon class="cut" points="136.00,66.10 176.00,66.10 176.00,64.10 136.00,64.10" />
+<polygon class="cut" points="186.00,66.00 226.00,66.00 226.00,64.00 186.00,64.00" />
+<polygon class="cut" points="176.00,69.00 178.00,69.00 178.00,57.00 176.00,57.00" />
+<polygon class="cut" points="184.00,69.00 186.00,69.00 186.00,57.00 184.00,57.00" />
+<polygon class="cut" points="136.00,117.90 176.00,117.90 176.00,119.90 136.00,119.90" />
+<polygon class="cut" points="186.00,118.00 226.00,118.00 226.00,120.00 186.00,120.00" />
+<polygon class="cut" points="176.00,115.00 178.00,115.00 178.00,127.00 176.00,127.00" />
+<polygon class="cut" points="184.00,115.00 186.00,115.00 186.00,127.00 184.00,127.00" />
+<polygon class="cut" points="178.00,127.00 184.00,127.00 184.00,125.00 178.00,125.00" />
+<polygon class="cut2" points="178.50,125.00 183.50,125.00 183.50,117.25 178.50,117.25" />
+<polygon class="cut2" points="178.50,66.75 183.50,66.75 183.50,54.00 178.50,54.00" />
+<polygon class="cut2" points="178.50,42.00 183.50,42.00 183.50,37.00 178.50,37.00" />
+<polygon class="glass" points="179.50,117.00 182.50,117.00 182.50,67.00 179.50,67.00" />
+<line class="ctr" x1="130.00" y1="92.00" x2="232.00" y2="92.00"/>
+<polygon class="weld" points="176.00,64.10 173.80,64.10 176.00,61.90"/>
+<polygon class="weld" points="176.00,119.90 173.80,119.90 176.00,122.10"/>
+<polygon class="weld" points="186.00,64.00 188.20,64.00 186.00,61.80"/>
+<polygon class="weld" points="186.00,120.00 188.20,120.00 186.00,122.20"/>
+<line class="ext" x1="136.00" y1="119.90" x2="136.00" y2="138.00"/>
+<line class="ext" x1="176.00" y1="119.90" x2="176.00" y2="138.00"/>
+<line class="ext" x1="186.00" y1="120.00" x2="186.00" y2="138.00"/>
+<line class="ext" x1="226.00" y1="120.00" x2="226.00" y2="138.00"/>
+<line class="dim" x1="136.00" y1="136.00" x2="176.00" y2="136.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="156.00" y="135.00" font-size="2.8" text-anchor="middle" font-weight="normal">40</text>
+<line class="dim" x1="186.00" y1="136.00" x2="226.00" y2="136.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="206.00" y="135.00" font-size="2.8" text-anchor="middle" font-weight="normal">40</text>
+<line class="dim" x1="176.00" y1="139.50" x2="186.00" y2="139.50" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="181.00" y="138.50" font-size="2.8" text-anchor="middle" font-weight="normal">10</text>
+<line class="ext" x1="136.00" y1="119.90" x2="136.00" y2="145.00"/>
+<line class="ext" x1="226.00" y1="120.00" x2="226.00" y2="145.00"/>
+<line class="dim" x1="136.00" y1="143.00" x2="226.00" y2="143.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="181.00" y="142.00" font-size="2.8" text-anchor="middle" font-weight="normal">90 (ยาวรวม)</text>
+<line class="ext" x1="136.00" y1="64.10" x2="127.00" y2="64.10"/>
+<line class="ext" x1="136.00" y1="119.90" x2="127.00" y2="119.90"/>
+<line class="dim" x1="129.00" y1="119.90" x2="129.00" y2="64.10" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="128.00" y="92.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 128.00 92.00)">Ø55.8 h9 (OD)</text>
+<line class="ext" x1="226.00" y1="64.00" x2="235.00" y2="64.00"/>
+<line class="ext" x1="226.00" y1="120.00" x2="235.00" y2="120.00"/>
+<line class="dim" x1="237.00" y1="120.00" x2="237.00" y2="64.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="236.00" y="92.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 236.00 92.00)">Ø56.0 h9 (OD)</text>
+<polyline class="dim" points="181.00,82.00 200.00,51.00 212.00,51.00" marker-start="url(#arr)"/>
+<text class="dimt" x="201.00" y="50.20" font-size="2.8" text-anchor="start" font-weight="normal">ร่องเสียบ กว้าง 6 (ใส่ฟิลเตอร์ 50x50 หนา ≤5)</text>
+<polyline class="dim" points="186.00,122.00 200.00,129.00 212.00,129.00" marker-start="url(#arr)"/>
+<text class="dimt" x="201.00" y="128.20" font-size="2.8" text-anchor="start" font-weight="normal">ท่อ B</text>
+<polyline class="dim" points="176.00,122.00 138.00,129.00 126.00,129.00" marker-start="url(#arr)"/>
+<text class="dimt" x="137.00" y="128.20" font-size="2.8" text-anchor="end" font-weight="normal">ท่อ A</text>
+<polyline class="dim" points="174.50,63.10 140.00,51.00 128.00,51.00" marker-start="url(#arr)"/>
+<text class="dimt" x="139.00" y="50.20" font-size="2.8" text-anchor="end" font-weight="normal">เชื่อมรอบ TIG a3</text>
+<line class="dim" x1="141.00" y1="86.00" x2="161.00" y2="86.00" marker-end="url(#arr)"/>
+<text class="txt" x="141.00" y="84.80" font-size="2.6" text-anchor="start" font-weight="normal">แสง/การไหล</text>
+<text class="txt" x="181.00" y="19.00" font-size="4.0" text-anchor="middle" font-weight="bold">SECTION B-B : ภาพตัดผ่านแกน</text>
+<text class="txt" x="181.00" y="23.50" font-size="2.8" text-anchor="middle" font-weight="normal">มาตราส่วน 1:1</text>
+<polygon class="vis" points="22.10,187.00 22.10,252.50 31.00,252.50 31.00,261.40 93.00,261.40 93.00,252.50 101.90,252.50 101.90,187.00" />
+<circle class="vis" cx="62.00" cy="222.00" r="23.00"/>
+<line class="bend" x1="28.30" y1="252.50" x2="28.30" y2="187.00"/>
+<line class="bend" x1="95.70" y1="252.50" x2="95.70" y2="187.00"/>
+<line class="bend" x1="31.00" y1="255.20" x2="93.00" y2="255.20"/>
+<line class="ctr" x1="54.00" y1="222.00" x2="70.00" y2="222.00"/>
+<line class="ctr" x1="62.00" y1="230.00" x2="62.00" y2="214.00"/>
+<line class="ext" x1="22.10" y1="187.00" x2="22.10" y2="179.00"/>
+<line class="ext" x1="101.90" y1="187.00" x2="101.90" y2="179.00"/>
+<line class="dim" x1="22.10" y1="181.00" x2="101.90" y2="181.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="62.00" y="180.00" font-size="2.8" text-anchor="middle" font-weight="normal">79.80</text>
+<line class="ext" x1="28.30" y1="187.00" x2="28.30" y2="184.00"/>
+<line class="ext" x1="95.70" y1="187.00" x2="95.70" y2="184.00"/>
+<line class="dim" x1="28.30" y1="185.00" x2="95.70" y2="185.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="62.00" y="184.00" font-size="2.8" text-anchor="middle" font-weight="normal">67.40 (เส้นพับ)</text>
+<line class="ext" x1="101.90" y1="187.00" x2="110.90" y2="187.00"/>
+<line class="ext" x1="93.00" y1="261.40" x2="110.90" y2="261.40"/>
+<line class="dim" x1="108.90" y1="261.40" x2="108.90" y2="187.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="107.90" y="224.20" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 107.90 224.20)">74.40</text>
+<line class="ext" x1="101.90" y1="255.20" x2="104.90" y2="255.20"/>
+<line class="dim" x1="104.40" y1="255.20" x2="104.40" y2="187.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="103.40" y="221.10" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 103.40 221.10)">68.20</text>
+<polyline class="dim" points="31.00,256.50 32.10,268.40 44.10,268.40" marker-start="url(#arr)"/>
+<text class="dimt" x="33.10" y="267.60" font-size="2.8" text-anchor="start" font-weight="normal">บากมุม (relief)</text>
+<polyline class="dim" points="78.26,238.26 99.90,268.40 111.90,268.40" marker-start="url(#arr)"/>
+<text class="dimt" x="100.90" y="267.60" font-size="2.8" text-anchor="start" font-weight="normal">Ø46</text>
+<text class="red" x="62.00" y="232.00" font-size="2.6" text-anchor="middle" font-weight="normal">--- = เส้นพับขึ้น 90°, R ใน 2</text>
+<text class="txt" x="62.00" y="167.00" font-size="4.0" text-anchor="middle" font-weight="bold">P01 FRONT BODY : แผ่นคลี่ (Flat)</text>
+<text class="txt" x="62.00" y="171.50" font-size="2.8" text-anchor="middle" font-weight="normal">Al 5052-H32 หนา 2  |  1:1</text>
+<path class="vis" d="M127.50,263.00 L188.50,263.00 L190.50,261.00 L190.50,197.00 L173.00,197.00 L173.00,180.00 A5.0,5.0 0 0 0 168.00,175.00 L148.00,175.00 A5.0,5.0 0 0 0 143.00,180.00 L143.00,197.00 L125.50,197.00 L125.50,261.00 Z"/>
+<polygon class="vis" points="132.75,255.25 183.25,255.25 183.25,204.75 132.75,204.75" />
+<polygon class="glass" points="133.00,255.00 183.00,255.00 183.00,205.00 133.00,205.00" />
+<circle class="vis" cx="158.00" cy="186.00" r="6.00"/>
+<line class="ctr" x1="120.50" y1="230.00" x2="195.50" y2="230.00"/>
+<line class="ctr" x1="158.00" y1="268.00" x2="158.00" y2="171.00"/>
+<line class="ext" x1="125.50" y1="263.00" x2="125.50" y2="272.00"/>
+<line class="ext" x1="190.50" y1="263.00" x2="190.50" y2="272.00"/>
+<line class="dim" x1="125.50" y1="270.00" x2="190.50" y2="270.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="158.00" y="269.00" font-size="2.8" text-anchor="middle" font-weight="normal">65</text>
+<line class="ext" x1="132.75" y1="255.25" x2="132.75" y2="266.00"/>
+<line class="ext" x1="183.25" y1="255.25" x2="183.25" y2="266.00"/>
+<line class="dim" x1="132.75" y1="265.00" x2="183.25" y2="265.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="158.00" y="264.00" font-size="2.8" text-anchor="middle" font-weight="normal">□50.5</text>
+<line class="ext" x1="190.50" y1="263.00" x2="200.50" y2="263.00"/>
+<line class="ext" x1="173.00" y1="175.00" x2="200.50" y2="175.00"/>
+<line class="dim" x1="198.50" y1="263.00" x2="198.50" y2="175.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="197.50" y="219.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 197.50 219.00)">88</text>
+<line class="ext" x1="190.50" y1="197.00" x2="193.50" y2="197.00"/>
+<line class="dim" x1="193.00" y1="263.00" x2="193.00" y2="197.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="192.00" y="230.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 192.00 230.00)">66</text>
+<line class="ext" x1="143.00" y1="175.00" x2="143.00" y2="170.00"/>
+<line class="ext" x1="173.00" y1="175.00" x2="173.00" y2="170.00"/>
+<line class="dim" x1="143.00" y1="172.00" x2="173.00" y2="172.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="158.00" y="171.00" font-size="2.8" text-anchor="middle" font-weight="normal">30</text>
+<line class="ext" x1="125.50" y1="230.00" x2="116.50" y2="230.00"/>
+<line class="ext" x1="125.50" y1="263.00" x2="116.50" y2="263.00"/>
+<line class="dim" x1="118.50" y1="263.00" x2="118.50" y2="230.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="117.50" y="246.50" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 117.50 246.50)">33</text>
+<line class="ext" x1="152.00" y1="186.00" x2="116.50" y2="186.00"/>
+<line class="dim" x1="118.50" y1="230.00" x2="118.50" y2="186.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="117.50" y="208.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 117.50 208.00)">44</text>
+<text class="blue" x="158.00" y="234.00" font-size="2.6" text-anchor="middle" font-weight="normal">ฟิลเตอร์ 50x50</text>
+<text class="blue" x="158.00" y="238.00" font-size="2.4" text-anchor="middle" font-weight="normal">ยึดด้วยซิลิโคน RTV 4 มุม</text>
+<polyline class="dim" points="189.50,262.00 194.50,275.00 206.50,275.00" marker-start="url(#arr)"/>
+<text class="dimt" x="195.50" y="274.20" font-size="2.8" text-anchor="start" font-weight="normal">ลบมุม 2x45°</text>
+<polyline class="dim" points="162.24,181.76 179.00,166.00 191.00,166.00" marker-start="url(#arr)"/>
+<text class="dimt" x="180.00" y="165.20" font-size="2.8" text-anchor="start" font-weight="normal">Ø12</text>
+<text class="txt" x="158.00" y="160.00" font-size="4.0" text-anchor="middle" font-weight="bold">P05 ถาดใส่ฟิลเตอร์ (Carrier)</text>
+<text class="txt" x="158.00" y="164.50" font-size="2.8" text-anchor="middle" font-weight="normal">Al 6061-T6 หนา 5  |  1:1</text>
+<polygon class="vis" points="214.50,257.00 285.50,257.00 285.50,187.00 214.50,187.00" />
+<circle class="vis" cx="250.00" cy="222.00" r="23.00"/>
+<line class="ctr" x1="210.50" y1="222.00" x2="289.50" y2="222.00"/>
+<line class="ctr" x1="250.00" y1="261.00" x2="250.00" y2="183.00"/>
+<line class="ext" x1="214.50" y1="257.00" x2="214.50" y2="265.00"/>
+<line class="ext" x1="285.50" y1="257.00" x2="285.50" y2="265.00"/>
+<line class="dim" x1="214.50" y1="263.00" x2="285.50" y2="263.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="250.00" y="262.00" font-size="2.8" text-anchor="middle" font-weight="normal">71</text>
+<line class="ext" x1="285.50" y1="187.00" x2="293.50" y2="187.00"/>
+<line class="ext" x1="285.50" y1="257.00" x2="293.50" y2="257.00"/>
+<line class="dim" x1="291.50" y1="257.00" x2="291.50" y2="187.00" marker-start="url(#arr)" marker-end="url(#arr)"/>
+<text class="dimt" x="290.50" y="222.00" font-size="2.8" text-anchor="middle" font-weight="normal" transform="rotate(-90 290.50 222.00)">70</text>
+<polyline class="dim" points="266.26,205.74 281.50,181.00 293.50,181.00" marker-start="url(#arr)"/>
+<text class="dimt" x="282.50" y="180.20" font-size="2.8" text-anchor="start" font-weight="normal">Ø46</text>
+<text class="txt" x="250.00" y="174.00" font-size="4.0" text-anchor="middle" font-weight="bold">P02 BACK PLATE</text>
+<text class="txt" x="250.00" y="178.50" font-size="2.8" text-anchor="middle" font-weight="normal">Al 5052-H32 หนา 2  |  1:1</text>
+<text class="txt" x="292.00" y="20.00" font-size="3.6" text-anchor="start" font-weight="bold">หมายเหตุ / ข้อกำหนด</text>
+<text class="txt" x="292.00" y="26.00" font-size="2.55" text-anchor="start" font-weight="normal">1. หน่วย mm. ค่าเผื่อทั่วไป ±0.2 (ชิ้นเลเซอร์), ±0.5 (หลังเชื่อม)</text>
+<text class="txt" x="292.00" y="30.60" font-size="2.55" text-anchor="start" font-weight="normal">2. Ø55.8 / Ø56.0 = ขนาดโตนอก (OD) ของปลายท่อที่สวมเข้าเครื่อง</text>
+<text class="txt" x="292.00" y="35.20" font-size="2.55" text-anchor="start" font-weight="normal">   ถ้าขนาดเครื่องเป็นเพลา/ท่อตัวผู้ ให้ทำเป็นปลอกสวมนอก ID +0.1~0.2</text>
+<text class="txt" x="292.00" y="39.80" font-size="2.55" text-anchor="start" font-weight="normal">3. ความต่าง 0.2 mm ต้องกลึงผิว OD หลังเชื่อม (สต๊อกท่อ Ø60 หรือหนากว่า)</text>
+<text class="txt" x="292.00" y="44.40" font-size="2.55" text-anchor="start" font-weight="normal">   ถ้าไม่มีเครื่องกลึง ใช้ท่อสำเร็จใกล้เคียงแล้วปรับฟิตด้วยโอริง/เทป</text>
+<text class="txt" x="292.00" y="49.00" font-size="2.55" text-anchor="start" font-weight="normal">4. P01 พับขึ้น 90° 3 ด้าน (ซ้าย ขวา ล่าง) ไปทางด้านท่อ B, R ใน 2</text>
+<text class="txt" x="292.00" y="53.60" font-size="2.55" text-anchor="start" font-weight="normal">   K=0.4 → BA=4.40, BD=3.60  ตรวจกับตารางพับของร้านก่อนตัด</text>
+<text class="txt" x="292.00" y="58.20" font-size="2.55" text-anchor="start" font-weight="normal">5. วาง P02 บนปลายปีก P01 เชื่อม TIG ตามขอบ 3 ด้าน (ด้านบนเปิด)</text>
+<text class="txt" x="292.00" y="62.80" font-size="2.55" text-anchor="start" font-weight="normal">6. เชื่อมท่อ A ที่หน้า P01, ท่อ B ที่หน้า P02 รอบวง fillet a3</text>
+<text class="txt" x="292.00" y="67.40" font-size="2.55" text-anchor="start" font-weight="normal">   ใช้แกนจิ๊กจับศูนย์ร่วม (ร่วมศูนย์ ≤0.3) เชื่อมสลับจุดกันบิด</text>
+<text class="txt" x="292.00" y="72.00" font-size="2.55" text-anchor="start" font-weight="normal">7. ลวดเชื่อม ER5356 (ถ้าจะชุบอโนไดซ์) หรือ ER4043</text>
+<text class="txt" x="292.00" y="76.60" font-size="2.55" text-anchor="start" font-weight="normal">8. ลบคม ขัดเม็ดเชื่อมในร่องให้เรียบ ถาด P05 ต้องเลื่อนเข้าออกลื่น</text>
+<text class="txt" x="292.00" y="81.20" font-size="2.55" text-anchor="start" font-weight="normal">9. แนะนำชุบอโนไดซ์ดำด้าน ลดแสงสะท้อนภายใน</text>
+<text class="txt" x="292.00" y="85.80" font-size="2.55" text-anchor="start" font-weight="normal">10. ฟิลเตอร์ 50x50 หนา ≤5 วางในช่อง □50.5 ยึดซิลิโคนที่มุม</text>
+<text class="txt" x="292.00" y="90.40" font-size="2.55" text-anchor="start" font-weight="normal">11. ไฟล์ DXF: P01, P02, P05 (layer CUT=ตัด, BEND=เส้นพับ)</text>
+<text class="txt" x="292.00" y="202.00" font-size="3.4" text-anchor="start" font-weight="bold">รายการชิ้นส่วน (BOM)</text>
+<rect class="thead" x="292.00" y="205.00" width="105.00" height="5.20"/>
+<text class="txt" x="293.20" y="208.70" font-size="2.6" text-anchor="start" font-weight="bold">No.</text>
+<text class="txt" x="303.20" y="208.70" font-size="2.6" text-anchor="start" font-weight="bold">ชิ้นส่วน</text>
+<text class="txt" x="324.20" y="208.70" font-size="2.6" text-anchor="start" font-weight="bold">วัสดุ / ขนาด</text>
+<text class="txt" x="362.20" y="208.70" font-size="2.6" text-anchor="start" font-weight="bold">วิธีทำ</text>
+<text class="txt" x="383.20" y="208.70" font-size="2.6" text-anchor="start" font-weight="bold">จำนวน</text>
+<line class="thin" x1="292.00" y1="210.20" x2="397.00" y2="210.20"/>
+<text class="txt" x="293.20" y="213.90" font-size="2.6" text-anchor="start" font-weight="normal">P01</text>
+<text class="txt" x="303.20" y="213.90" font-size="2.6" text-anchor="start" font-weight="normal">บอดี้หน้า</text>
+<text class="txt" x="324.20" y="213.90" font-size="2.6" text-anchor="start" font-weight="normal">Al5052-H32 t2</text>
+<text class="txt" x="362.20" y="213.90" font-size="2.6" text-anchor="start" font-weight="normal">เลเซอร์+พับ</text>
+<text class="txt" x="383.20" y="213.90" font-size="2.6" text-anchor="start" font-weight="normal">1</text>
+<line class="thin" x1="292.00" y1="215.40" x2="397.00" y2="215.40"/>
+<text class="txt" x="293.20" y="219.10" font-size="2.6" text-anchor="start" font-weight="normal">P02</text>
+<text class="txt" x="303.20" y="219.10" font-size="2.6" text-anchor="start" font-weight="normal">แผ่นหลัง</text>
+<text class="txt" x="324.20" y="219.10" font-size="2.6" text-anchor="start" font-weight="normal">Al5052-H32 t2</text>
+<text class="txt" x="362.20" y="219.10" font-size="2.6" text-anchor="start" font-weight="normal">เลเซอร์</text>
+<text class="txt" x="383.20" y="219.10" font-size="2.6" text-anchor="start" font-weight="normal">1</text>
+<line class="thin" x1="292.00" y1="220.60" x2="397.00" y2="220.60"/>
+<text class="txt" x="293.20" y="224.30" font-size="2.6" text-anchor="start" font-weight="normal">P03</text>
+<text class="txt" x="303.20" y="224.30" font-size="2.6" text-anchor="start" font-weight="normal">ท่อ A</text>
+<text class="txt" x="324.20" y="224.30" font-size="2.6" text-anchor="start" font-weight="normal">Al6061 OD55.8 x t2 x 40</text>
+<text class="txt" x="362.20" y="224.30" font-size="2.6" text-anchor="start" font-weight="normal">ตัด+กลึง</text>
+<text class="txt" x="383.20" y="224.30" font-size="2.6" text-anchor="start" font-weight="normal">1</text>
+<line class="thin" x1="292.00" y1="225.80" x2="397.00" y2="225.80"/>
+<text class="txt" x="293.20" y="229.50" font-size="2.6" text-anchor="start" font-weight="normal">P04</text>
+<text class="txt" x="303.20" y="229.50" font-size="2.6" text-anchor="start" font-weight="normal">ท่อ B</text>
+<text class="txt" x="324.20" y="229.50" font-size="2.6" text-anchor="start" font-weight="normal">Al6061 OD56.0 x t2 x 40</text>
+<text class="txt" x="362.20" y="229.50" font-size="2.6" text-anchor="start" font-weight="normal">ตัด+กลึง</text>
+<text class="txt" x="383.20" y="229.50" font-size="2.6" text-anchor="start" font-weight="normal">1</text>
+<line class="thin" x1="292.00" y1="231.00" x2="397.00" y2="231.00"/>
+<text class="txt" x="293.20" y="234.70" font-size="2.6" text-anchor="start" font-weight="normal">P05</text>
+<text class="txt" x="303.20" y="234.70" font-size="2.6" text-anchor="start" font-weight="normal">ถาดฟิลเตอร์</text>
+<text class="txt" x="324.20" y="234.70" font-size="2.6" text-anchor="start" font-weight="normal">Al6061-T6 t5</text>
+<text class="txt" x="362.20" y="234.70" font-size="2.6" text-anchor="start" font-weight="normal">เลเซอร์</text>
+<text class="txt" x="383.20" y="234.70" font-size="2.6" text-anchor="start" font-weight="normal">1</text>
+<line class="thin" x1="292.00" y1="236.20" x2="397.00" y2="236.20"/>
+<rect class="thin" x="292.00" y="205.00" width="105.00" height="31.20" fill="none"/>
+<line class="thin" x1="302.00" y1="205.00" x2="302.00" y2="236.20"/>
+<line class="thin" x1="323.00" y1="205.00" x2="323.00" y2="236.20"/>
+<line class="thin" x1="361.00" y1="205.00" x2="361.00" y2="236.20"/>
+<line class="thin" x1="382.00" y1="205.00" x2="382.00" y2="236.20"/>
+<rect class="thead" x="292.00" y="242.20" width="105.00" height="5.60"/>
+<text class="txt" x="293.20" y="246.30" font-size="2.6" text-anchor="start" font-weight="bold">ชื่อแบบ</text>
+<text class="txt" x="329.20" y="246.30" font-size="2.6" text-anchor="start" font-weight="bold">อแดปเตอร์ใส่ฟิลเตอร์ 5x5 cm</text>
+<line class="thin" x1="292.00" y1="247.80" x2="397.00" y2="247.80"/>
+<text class="txt" x="293.20" y="251.90" font-size="2.6" text-anchor="start" font-weight="normal">เครื่อง</text>
+<text class="txt" x="329.20" y="251.90" font-size="2.6" text-anchor="start" font-weight="normal">Xenon reactor (ปลาย Ø55.8 / Ø56)</text>
+<line class="thin" x1="292.00" y1="253.40" x2="397.00" y2="253.40"/>
+<text class="txt" x="293.20" y="257.50" font-size="2.6" text-anchor="start" font-weight="normal">วัสดุหลัก</text>
+<text class="txt" x="329.20" y="257.50" font-size="2.6" text-anchor="start" font-weight="normal">อลูมิเนียม | ตัด-พับ-เลเซอร์-เชื่อม</text>
+<line class="thin" x1="292.00" y1="259.00" x2="397.00" y2="259.00"/>
+<text class="txt" x="293.20" y="263.10" font-size="2.6" text-anchor="start" font-weight="normal">มาตราส่วน / กระดาษ</text>
+<text class="txt" x="329.20" y="263.10" font-size="2.6" text-anchor="start" font-weight="normal">1:1  |  A3   (ห้ามวัดจากกระดาษ ใช้ตัวเลข)</text>
+<line class="thin" x1="292.00" y1="264.60" x2="397.00" y2="264.60"/>
+<text class="txt" x="293.20" y="268.70" font-size="2.6" text-anchor="start" font-weight="normal">วันที่ / Rev</text>
+<text class="txt" x="329.20" y="268.70" font-size="2.6" text-anchor="start" font-weight="normal">2026-10-20  |  Rev A</text>
+<line class="thin" x1="292.00" y1="270.20" x2="397.00" y2="270.20"/>
+<rect class="thin" x="292.00" y="242.20" width="105.00" height="28.00" fill="none"/>
+<line class="thin" x1="328.00" y1="242.20" x2="328.00" y2="270.20"/>
+</svg>
